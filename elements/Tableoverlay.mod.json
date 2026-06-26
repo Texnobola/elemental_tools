@@ -1,0 +1,29 @@
+{
+  "_fv": 79,
+  "_type": "overlay",
+  "definition": {
+    "priority": "NORMAL",
+    "components": [
+      {
+        "type": "image",
+        "data": {
+          "image": "gui_table.png",
+          "use1Xscale": false,
+          "anchorPoint": "CENTER",
+          "x": 1,
+          "y": 1,
+          "locked": false
+        }
+      }
+    ],
+    "baseTexture": "tablegui.png",
+    "overlayTarget": "Ingame",
+    "gridSettings": {
+      "sx": 18,
+      "sy": 18,
+      "ox": 11,
+      "oy": 15,
+      "snapOnGrid": false
+    }
+  }
+}

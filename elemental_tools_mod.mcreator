@@ -9,22 +9,111 @@
       "metadata": {
         "files": []
       }
+    },
+    {
+      "name": "Tablegui",
+      "type": "gui",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tablegui",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/client/gui/TableguiScreen.java",
+          "src/main/java/net/mcreator/elementaltoolsmod/world/inventory/TableguiMenu.java"
+        ]
+      }
+    },
+    {
+      "name": "Tableoverlay",
+      "type": "overlay",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tableoverlay",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/client/screens/TableoverlayOverlay.java"
+        ]
+      }
+    },
+    {
+      "name": "Kuchaytirishstoli",
+      "type": "animatedblock",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "kuchaytirishstoli",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/block/entity/KuchaytirishstoliTileEntity.java",
+          "src/main/java/net/mcreator/elementaltoolsmod/block/model/KuchaytirishstoliDisplayModel.java",
+          "src/main/java/net/mcreator/elementaltoolsmod/block/display/KuchaytirishstoliDisplayItem.java",
+          "src/main/resources/elemental_tools_mod.mixins.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/block/renderer/KuchaytirishstoliTileRenderer.java",
+          "src/main/resources/assets/elemental_tools_mod/blockstates/kuchaytirishstoli.json",
+          "src/main/resources/assets/elemental_tools_mod/models/custom/kuchaytirishstoli_particle.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/block/renderer/KuchaytirishstoliDisplayItemRenderer.java",
+          "src/main/java/net/mcreator/elementaltoolsmod/block/model/KuchaytirishstoliBlockModel.java",
+          "src/main/java/net/mcreator/elementaltoolsmod/block/KuchaytirishstoliBlock.java",
+          "src/main/resources/assets/elemental_tools_mod/models/item/kuchaytirishstoli.json"
+        ]
+      }
+    },
+    {
+      "name": "Retsepstol",
+      "type": "recipe",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "retsepstol",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/elemental_tools_mod/recipes/retsepstol.json"
+        ]
+      }
+    },
+    {
+      "name": "Kuchayishvaqti",
+      "type": "achievement",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "kuchayishvaqti",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/elemental_tools_mod/advancements/kuchayishvaqti.json"
+        ]
+      }
     }
   ],
   "variable_elements": [],
   "sound_elements": [],
-  "tag_elements": {},
+  "tag_elements": {
+    "BLOCKS:minecraft:mineable/pickaxe": [
+      "~CUSTOM:Kuchaytirishstoli"
+    ],
+    "BLOCKS:minecraft:needs_iron_tool": [
+      "~CUSTOM:Kuchaytirishstoli"
+    ]
+  },
   "tab_element_order": {},
   "language_map": {
     "en_us": {
-      "item_group.elemental_tools_mod.tab": "Elemental Tools"
+      "item_group.elemental_tools_mod.tab": "Elemental Tools",
+      "block.elemental_tools_mod.kuchaytirishstoli": "Kuchaytirish stoli",
+      "advancements.kuchayishvaqti.descr": "Kuchaytirish stolini yasa",
+      "advancements.kuchayishvaqti.title": "Kuchayish vaqti"
     }
   },
   "metadata": {
     "files": [
       "src/main/resources/META-INF/mods.toml",
       "src/main/java/net/mcreator/elementaltoolsmod/ElementalToolsModMod.java",
-      "src/main/resources/pack.mcmeta"
+      "src/main/resources/pack.mcmeta",
+      "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModTabs.java",
+      "src/main/java/net/mcreator/elementaltoolsmod/block/listener/ClientListener.java",
+      "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModScreens.java",
+      "src/main/java/net/mcreator/elementaltoolsmod/network/MenuStateUpdateMessage.java",
+      "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModMenus.java",
+      "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModBlocks.java",
+      "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModBlockEntities.java",
+      "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModItems.java"
     ]
   },
   "foldersRoot": {

@@ -1,3 +1,6 @@
 {
-  "item_group.elemental_tools_mod.tab": "Elemental Tools"
+  "item_group.elemental_tools_mod.tab": "Elemental Tools",
+  "block.elemental_tools_mod.kuchaytirishstoli": "Kuchaytirish stoli",
+  "advancements.kuchayishvaqti.descr": "Kuchaytirish stolini yasa",
+  "advancements.kuchayishvaqti.title": "Kuchayish vaqti"
 }

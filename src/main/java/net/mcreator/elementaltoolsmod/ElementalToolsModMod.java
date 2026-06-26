@@ -17,6 +17,12 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.FriendlyByteBuf;
 
+import net.mcreator.elementaltoolsmod.init.ElementalToolsModModTabs;
+import net.mcreator.elementaltoolsmod.init.ElementalToolsModModMenus;
+import net.mcreator.elementaltoolsmod.init.ElementalToolsModModItems;
+import net.mcreator.elementaltoolsmod.init.ElementalToolsModModBlocks;
+import net.mcreator.elementaltoolsmod.init.ElementalToolsModModBlockEntities;
+
 import java.util.function.Supplier;
 import java.util.function.Function;
 import java.util.function.BiConsumer;
@@ -36,6 +42,14 @@ public class ElementalToolsModMod {
 		// End of user code block mod constructor
 		MinecraftForge.EVENT_BUS.register(this);
 		IEventBus bus = context.getModEventBus();
+
+		ElementalToolsModModBlocks.REGISTRY.register(bus);
+		ElementalToolsModModBlockEntities.REGISTRY.register(bus);
+		ElementalToolsModModItems.REGISTRY.register(bus);
+
+		ElementalToolsModModTabs.REGISTRY.register(bus);
+
+		ElementalToolsModModMenus.REGISTRY.register(bus);
 
 		// Start of user code block mod init
 		// End of user code block mod init

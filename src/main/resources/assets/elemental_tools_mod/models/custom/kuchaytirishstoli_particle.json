@@ -1,0 +1,6 @@
+{
+  "parent": "elemental_tools_mod:displaysettings/",
+  "textures": {
+    "particle": "elemental_tools_mod:block/table_texture_final"
+  }
+}
