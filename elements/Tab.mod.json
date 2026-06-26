@@ -1,0 +1,11 @@
+{
+  "_fv": 79,
+  "_type": "tab",
+  "definition": {
+    "name": "Elemental Tools",
+    "icon": {
+      "value": "Items.DIAMOND_SWORD"
+    },
+    "showSearch": true
+  }
+}

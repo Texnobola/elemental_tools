@@ -1,0 +1,26 @@
+repositories {
+        maven {
+            url = "https://www.cursemaven.com"
+            content {
+                includeGroup "curse.maven"
+            }
+        }
+    }
+
+dependencies {
+  modImplementation "curse.maven:photon-871522:6878530"
+  modImplementation "curse.maven:ldlib-626676:7339338"
+}
+
+
+repositories {
+  maven {
+      url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+  }
+}
+
+dependencies {
+  modImplementation 'software.bernie.geckolib:geckolib-forge-1.20.1:4.8.2'
+}
+
+

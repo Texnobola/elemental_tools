@@ -1,0 +1,54 @@
+{
+  "mod_elements": [
+    {
+      "name": "Tab",
+      "type": "tab",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "tab",
+      "metadata": {
+        "files": []
+      }
+    }
+  ],
+  "variable_elements": [],
+  "sound_elements": [],
+  "tag_elements": {},
+  "tab_element_order": {},
+  "language_map": {
+    "en_us": {
+      "item_group.elemental_tools_mod.tab": "Elemental Tools"
+    }
+  },
+  "metadata": {
+    "files": [
+      "src/main/resources/META-INF/mods.toml",
+      "src/main/java/net/mcreator/elementaltoolsmod/ElementalToolsModMod.java",
+      "src/main/resources/pack.mcmeta"
+    ]
+  },
+  "foldersRoot": {
+    "name": "~",
+    "children": []
+  },
+  "workspaceSettings": {
+    "modid": "elemental_tools_mod",
+    "modName": "elemental_tools_mod",
+    "version": "1.0.0",
+    "author": "MCreator",
+    "websiteURL": "https://mcreator.net",
+    "license": "Not specified",
+    "serverSideOnly": false,
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": [],
+    "mcreatorDependencies": [
+      "photon",
+      "geckolib"
+    ],
+    "currentGenerator": "forge-1.20.1",
+    "credits": "Created using mod maker MCreator - https://mcreator.net/about",
+    "modElementsPackage": "net.mcreator.elementaltoolsmod"
+  },
+  "mcreatorVersion": 202500228610
+}
