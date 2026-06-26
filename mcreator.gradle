@@ -1,15 +1,11 @@
 repositories {
         maven {
-            url = "https://www.cursemaven.com"
-            content {
-                includeGroup "curse.maven"
-            }
+            url = "https://maven.firstdark.dev/snapshots"
         }
     }
-
 dependencies {
-  modImplementation "curse.maven:photon-871522:6878530"
-  modImplementation "curse.maven:ldlib-626676:7339338"
+  modImplementation("com.lowdragmc.ldlib:ldlib-forge-1.20.1:1.0.50") { transitive = false }
+  modImplementation("com.lowdragmc.photon:photon-forge-1.20.1:1.1.17") { transitive = false }
 }
 
 
