@@ -8,8 +8,18 @@
     "inventoryOffsetX": 0,
     "inventoryOffsetY": 0,
     "renderBgLayer": true,
-    "doesPauseGame": false,
+    "doesPauseGame": true,
     "components": [
+      {
+        "type": "image",
+        "data": {
+          "image": "gui_table.png",
+          "use1Xscale": false,
+          "x": 87,
+          "y": 18,
+          "locked": false
+        }
+      },
       {
         "type": "inputslot",
         "data": {
@@ -43,8 +53,8 @@
             "fixedValue": false
           },
           "dropItemsWhenNotBound": true,
-          "x": 258,
-          "y": 53,
+          "x": 260,
+          "y": 54,
           "locked": false
         }
       },
@@ -56,18 +66,8 @@
             "fixedValue": false
           },
           "dropItemsWhenNotBound": true,
-          "x": 205,
-          "y": 96,
-          "locked": false
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "image": "gui_table.png",
-          "use1Xscale": false,
-          "x": 87,
-          "y": 20,
+          "x": 206,
+          "y": 97,
           "locked": false
         }
       }

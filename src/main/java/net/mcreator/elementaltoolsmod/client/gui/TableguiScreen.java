@@ -36,6 +36,11 @@ public class TableguiScreen extends AbstractContainerScreen<TableguiMenu> implem
 		menuStateUpdateActive = false;
 	}
 
+	@Override
+	public boolean isPauseScreen() {
+		return true;
+	}
+
 	private static final ResourceLocation texture = ResourceLocation.parse("elemental_tools_mod:textures/screens/tablegui.png");
 
 	@Override
@@ -51,7 +56,7 @@ public class TableguiScreen extends AbstractContainerScreen<TableguiMenu> implem
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
-		guiGraphics.blit(ResourceLocation.parse("elemental_tools_mod:textures/screens/gui_table.png"), this.leftPos + 1, this.topPos + 0, 0, 0, 256, 200, 256, 200);
+		guiGraphics.blit(ResourceLocation.parse("elemental_tools_mod:textures/screens/gui_table.png"), this.leftPos + 1, this.topPos + -2, 0, 0, 256, 200, 256, 200);
 		RenderSystem.disableBlend();
 	}
 

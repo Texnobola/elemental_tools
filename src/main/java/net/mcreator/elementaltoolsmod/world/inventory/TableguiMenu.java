@@ -90,12 +90,12 @@ public class TableguiMenu extends AbstractContainerMenu implements ElementalTool
 			private int x = TableguiMenu.this.x;
 			private int y = TableguiMenu.this.y;
 		}));
-		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 173, 34) {
+		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 175, 35) {
 			private final int slot = 1;
 			private int x = TableguiMenu.this.x;
 			private int y = TableguiMenu.this.y;
 		}));
-		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 120, 77) {
+		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 121, 78) {
 			private final int slot = 2;
 			private int x = TableguiMenu.this.x;
 			private int y = TableguiMenu.this.y;
