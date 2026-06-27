@@ -33,6 +33,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
 import net.mcreator.elementaltoolsmod.world.inventory.TableguiMenu;
+import net.mcreator.elementaltoolsmod.procedures.KuchaytirishstoliBlockAddedIdleAnimationProcedure;
 import net.mcreator.elementaltoolsmod.init.ElementalToolsModModBlockEntities;
 
 import javax.annotation.Nullable;
@@ -43,7 +44,7 @@ import java.util.Collections;
 import io.netty.buffer.Unpooled;
 
 public class KuchaytirishstoliBlock extends BaseEntityBlock implements EntityBlock {
-	public static final IntegerProperty ANIMATION = IntegerProperty.create("animation", 0, (int) 1);
+	public static final IntegerProperty ANIMATION = IntegerProperty.create("animation", 0, (int) 3);
 
 	public KuchaytirishstoliBlock() {
 		super(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).sound(SoundType.NETHERITE_BLOCK).strength(3f, 100f).lightLevel(s -> 2).requiresCorrectToolForDrops());
@@ -86,6 +87,12 @@ public class KuchaytirishstoliBlock extends BaseEntityBlock implements EntityBlo
 		if (!dropsOriginal.isEmpty())
 			return dropsOriginal;
 		return Collections.singletonList(new ItemStack(this, 1));
+	}
+
+	@Override
+	public void onPlace(BlockState blockstate, Level world, BlockPos pos, BlockState oldState, boolean moving) {
+		super.onPlace(blockstate, world, pos, oldState, moving);
+		KuchaytirishstoliBlockAddedIdleAnimationProcedure.execute(world, pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	@Override

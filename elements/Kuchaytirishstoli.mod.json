@@ -76,7 +76,7 @@
     "slipperiness": 0.6,
     "speedFactor": 1.0,
     "jumpFactor": 1.0,
-    "animationCount": 1,
+    "animationCount": 3.0,
     "reactionToPushing": "NORMAL",
     "isNotColidable": false,
     "isCustomSoundType": false,
@@ -124,6 +124,9 @@
     "isFluidTank": false,
     "fluidCapacity": 8000,
     "fluidRestrictions": [],
+    "onBlockAdded": {
+      "name": "KuchaytirishstoliBlockAddedIdleAnimation"
+    },
     "restrictionBiomes": [],
     "blocksToReplace": [
       {

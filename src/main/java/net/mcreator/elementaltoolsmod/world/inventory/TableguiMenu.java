@@ -30,7 +30,7 @@ public class TableguiMenu extends AbstractContainerMenu implements ElementalTool
 	public final Map<String, Object> menuState = new HashMap<>() {
 		@Override
 		public Object put(String key, Object value) {
-			if (!this.containsKey(key) && this.size() >= 3)
+			if (!this.containsKey(key) && this.size() >= 4)
 				return null;
 			return super.put(key, value);
 		}

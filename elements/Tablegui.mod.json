@@ -60,6 +60,16 @@
           "y": 96,
           "locked": false
         }
+      },
+      {
+        "type": "image",
+        "data": {
+          "image": "gui_table.png",
+          "use1Xscale": false,
+          "x": 87,
+          "y": 20,
+          "locked": false
+        }
       }
     ],
     "gridSettings": {

@@ -24,18 +24,6 @@
       }
     },
     {
-      "name": "Tableoverlay",
-      "type": "overlay",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "tableoverlay",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/elementaltoolsmod/client/screens/TableoverlayOverlay.java"
-        ]
-      }
-    },
-    {
       "name": "Kuchaytirishstoli",
       "type": "animatedblock",
       "compiles": true,
@@ -78,6 +66,36 @@
       "metadata": {
         "files": [
           "src/main/resources/data/elemental_tools_mod/advancements/kuchayishvaqti.json"
+        ]
+      }
+    },
+    {
+      "name": "KuchaytirishstoliBlockAddedIdleAnimation",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "kuchaytirishstoli_block_added_idle_animation",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ],
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/procedures/KuchaytirishstoliBlockAddedIdleAnimationProcedure.java"
         ]
       }
     }
