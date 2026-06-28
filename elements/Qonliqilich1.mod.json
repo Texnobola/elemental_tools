@@ -30,7 +30,7 @@
     "enableArmPose": false,
     "damageOnCrafting": false,
     "enableMeleeDamage": true,
-    "damageVsEntity": 7.0,
+    "damageVsEntity": 6.0,
     "specialInformation": {
       "fixedValue": []
     },
