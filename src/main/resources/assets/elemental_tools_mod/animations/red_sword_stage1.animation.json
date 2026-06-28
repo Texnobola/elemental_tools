@@ -1,0 +1,13 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"3": {
+			"loop": true,
+			"animation_length": 0.0417
+		},
+		"idle.animation": {
+			"loop": true,
+			"animation_length": 0.0417
+		}
+	}
+}

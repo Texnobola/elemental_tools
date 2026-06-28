@@ -5,7 +5,7 @@
     "renderType": 0,
     "texture": "texture_stage1",
     "name": "Qonli Qilich",
-    "idle": "",
+    "idle": "3",
     "rarity": "EPIC",
     "displaySettings": "red_sword_stage1_display.json",
     "leftArm": "",

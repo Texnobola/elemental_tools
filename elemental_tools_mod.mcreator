@@ -414,7 +414,57 @@
           "src/main/java/net/mcreator/elementaltoolsmod/procedures/PassiveeffectsProcedure.java"
         ]
       },
-      "path": "~/qilich/Item"
+      "path": "~/qilich/Functions"
+    },
+    {
+      "name": "LifestealAttack",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "lifesteal_attack",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "sourceentity",
+            "type": "entity"
+          }
+        ],
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/procedures/LifestealAttackProcedure.java"
+        ]
+      },
+      "path": "~/qilich/Functions"
+    },
+    {
+      "name": "StealDecay",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "steal_decay",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ],
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/procedures/StealDecayProcedure.java"
+        ]
+      },
+      "path": "~/qilich/Functions"
+    },
+    {
+      "name": "Qonliidishretsep",
+      "type": "recipe",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qonliidishretsep",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/elemental_tools_mod/recipes/qonliidishretsep.json"
+        ]
+      }
     }
   ],
   "variable_elements": [
@@ -513,6 +563,14 @@
     ],
     "ITEMS:mod:qonli_qilich_swords": [
       "CUSTOM:Qonliqilich1",
+      "CUSTOM:Qonliqilich2",
+      "CUSTOM:Qonliqilich3",
+      "CUSTOM:Qonliqilich4",
+      "CUSTOM:Qonliqilich5",
+      "CUSTOM:Qonliqilich6",
+      "CUSTOM:Qonliqilich7"
+    ],
+    "ITEMS:mod:qonli_qilich_lifesteal": [
       "CUSTOM:Qonliqilich2",
       "CUSTOM:Qonliqilich3",
       "CUSTOM:Qonliqilich4",
