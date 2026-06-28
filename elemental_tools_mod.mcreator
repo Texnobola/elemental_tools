@@ -396,6 +396,25 @@
         ]
       },
       "path": "~/qilich/Item"
+    },
+    {
+      "name": "Passiveeffects",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "passiveeffects",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ],
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/procedures/PassiveeffectsProcedure.java"
+        ]
+      },
+      "path": "~/qilich/Item"
     }
   ],
   "variable_elements": [
@@ -493,7 +512,13 @@
       "~CUSTOM:Kuchaytirishstoli"
     ],
     "ITEMS:mod:qonli_qilich_swords": [
-      "CUSTOM:Qonliqilich1"
+      "CUSTOM:Qonliqilich1",
+      "CUSTOM:Qonliqilich2",
+      "CUSTOM:Qonliqilich3",
+      "CUSTOM:Qonliqilich4",
+      "CUSTOM:Qonliqilich5",
+      "CUSTOM:Qonliqilich6",
+      "CUSTOM:Qonliqilich7"
     ]
   },
   "tab_element_order": {},
