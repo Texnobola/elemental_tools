@@ -648,6 +648,10 @@
             "children": []
           }
         ]
+      },
+      {
+        "name": "gui_stats",
+        "children": []
       }
     ]
   },

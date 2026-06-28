@@ -57,7 +57,7 @@ public class Qonliqilich4Item extends Item implements GeoItem {
 
 	private PlayState idlePredicate(AnimationState event) {
 		if (this.animationprocedure.equals("empty")) {
-			event.getController().setAnimation(RawAnimation.begin().thenLoop(""));
+			event.getController().setAnimation(RawAnimation.begin().thenLoop("1"));
 			return PlayState.CONTINUE;
 		}
 		return PlayState.STOP;

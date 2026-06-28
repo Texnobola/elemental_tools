@@ -57,7 +57,7 @@ public class Qonliqilich6Item extends Item implements GeoItem {
 
 	private PlayState idlePredicate(AnimationState event) {
 		if (this.animationprocedure.equals("empty")) {
-			event.getController().setAnimation(RawAnimation.begin().thenLoop(""));
+			event.getController().setAnimation(RawAnimation.begin().thenLoop("1"));
 			return PlayState.CONTINUE;
 		}
 		return PlayState.STOP;
@@ -107,7 +107,6 @@ public class Qonliqilich6Item extends Item implements GeoItem {
 			builder.putAll(super.getDefaultAttributeModifiers(equipmentSlot));
 			builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Item modifier", 22d, AttributeModifier.Operation.ADDITION));
 			builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Item modifier", -2.4, AttributeModifier.Operation.ADDITION));
-			builder.put(Attributes.ATTACK_KNOCKBACK, new AttributeModifier(java.util.UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF"), "Weapon knockback", 3.0, AttributeModifier.Operation.ADDITION));
 			return builder.build();
 		}
 		return super.getDefaultAttributeModifiers(equipmentSlot);
