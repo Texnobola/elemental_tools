@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "elemental_tools_mod:block/blood_block_bottom",
+    "up": "elemental_tools_mod:block/blood_block_top",
+    "north": "elemental_tools_mod:block/blood_block_top",
+    "east": "elemental_tools_mod:block/blood_block_top",
+    "south": "elemental_tools_mod:block/blood_block_top",
+    "west": "elemental_tools_mod:block/blood_block_top",
+    "particle": "elemental_tools_mod:block/blood_block_bottom"
+  },
+  "render_type": "solid"
+}

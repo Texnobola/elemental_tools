@@ -10,11 +10,13 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraft.world.level.block.Block;
 
 import net.mcreator.elementaltoolsmod.block.KuchaytirishstoliBlock;
+import net.mcreator.elementaltoolsmod.block.BloodblockBlock;
 import net.mcreator.elementaltoolsmod.ElementalToolsModMod;
 
 public class ElementalToolsModModBlocks {
 	public static final DeferredRegister<Block> REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, ElementalToolsModMod.MODID);
 	public static final RegistryObject<Block> KUCHAYTIRISHSTOLI = REGISTRY.register("kuchaytirishstoli", KuchaytirishstoliBlock::new);
+	public static final RegistryObject<Block> BLOODBLOCK = REGISTRY.register("bloodblock", BloodblockBlock::new);
 	// Start of user code block custom blocks
 	// End of user code block custom blocks
 }

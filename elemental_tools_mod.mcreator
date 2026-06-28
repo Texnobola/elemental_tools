@@ -263,6 +263,139 @@
         ]
       },
       "path": "~/qilich/Functions"
+    },
+    {
+      "name": "Bloodcan",
+      "type": "item",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bloodcan",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/elemental_tools_mod/models/item/bloodcan.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/BloodcanItem.java"
+        ]
+      },
+      "path": "~/qilich/Item"
+    },
+    {
+      "name": "Bloodblock",
+      "type": "block",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "bloodblock",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/elemental_tools_mod/blockstates/bloodblock.json",
+          "src/main/resources/assets/elemental_tools_mod/models/block/bloodblock.json",
+          "src/main/resources/data/elemental_tools_mod/loot_tables/blocks/bloodblock.json",
+          "src/main/resources/assets/elemental_tools_mod/models/item/bloodblock.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/block/BloodblockBlock.java"
+        ]
+      },
+      "path": "~/qilich/Item"
+    },
+    {
+      "name": "Qonliqilich2",
+      "type": "animateditem",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qonliqilich_2",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/item/model/Qonliqilich2ItemModel.java",
+          "src/main/resources/elemental_tools_mod.mixins.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/renderer/Qonliqilich2ItemRenderer.java",
+          "src/main/resources/assets/elemental_tools_mod/models/item/qonliqilich_2.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/Qonliqilich2Item.java"
+        ]
+      },
+      "path": "~/qilich/Item"
+    },
+    {
+      "name": "Qonliqilich3",
+      "type": "animateditem",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qonliqilich_3",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/item/renderer/Qonliqilich3ItemRenderer.java",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/Qonliqilich3Item.java",
+          "src/main/resources/assets/elemental_tools_mod/models/item/qonliqilich_3.json",
+          "src/main/resources/elemental_tools_mod.mixins.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/model/Qonliqilich3ItemModel.java"
+        ]
+      },
+      "path": "~/qilich/Item"
+    },
+    {
+      "name": "Qonliqilich4",
+      "type": "animateditem",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qonliqilich_4",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/item/Qonliqilich4Item.java",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/renderer/Qonliqilich4ItemRenderer.java",
+          "src/main/resources/assets/elemental_tools_mod/models/item/qonliqilich_4.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/model/Qonliqilich4ItemModel.java",
+          "src/main/resources/elemental_tools_mod.mixins.json"
+        ]
+      },
+      "path": "~/qilich/Item"
+    },
+    {
+      "name": "Qonliqilich5",
+      "type": "animateditem",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qonliqilich_5",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/item/renderer/Qonliqilich5ItemRenderer.java",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/model/Qonliqilich5ItemModel.java",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/Qonliqilich5Item.java",
+          "src/main/resources/elemental_tools_mod.mixins.json",
+          "src/main/resources/assets/elemental_tools_mod/models/item/qonliqilich_5.json"
+        ]
+      },
+      "path": "~/qilich/Item"
+    },
+    {
+      "name": "Qonliqilich6",
+      "type": "animateditem",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qonliqilich_6",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/item/renderer/Qonliqilich6ItemRenderer.java",
+          "src/main/resources/elemental_tools_mod.mixins.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/model/Qonliqilich6ItemModel.java",
+          "src/main/resources/assets/elemental_tools_mod/models/item/qonliqilich_6.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/Qonliqilich6Item.java"
+        ]
+      },
+      "path": "~/qilich/Item"
+    },
+    {
+      "name": "Qonliqilich7",
+      "type": "animateditem",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qonliqilich_7",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/elemental_tools_mod/models/item/qonliqilich_7.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/Qonliqilich7Item.java",
+          "src/main/resources/elemental_tools_mod.mixins.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/renderer/Qonliqilich7ItemRenderer.java",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/model/Qonliqilich7ItemModel.java"
+        ]
+      },
+      "path": "~/qilich/Item"
     }
   ],
   "variable_elements": [
@@ -375,7 +508,15 @@
       "advancements.qon.title": "Qon",
       "advancements.qon.descr": "Yuzta qonni yerga to\u0027k...",
       "key.categories.elementaltools": "Elemental Tools",
-      "key.elemental_tools_mod.lifesteal_toggle": "Lifesteal"
+      "key.elemental_tools_mod.lifesteal_toggle": "Lifesteal",
+      "item.elemental_tools_mod.bloodcan": "Blood Can",
+      "block.elemental_tools_mod.bloodblock": "Blood block",
+      "item.elemental_tools_mod.qonliqilich_2": "Qonli Qilich",
+      "item.elemental_tools_mod.qonliqilich_3": "Qonli Qilich",
+      "item.elemental_tools_mod.qonliqilich_4": "Qonli Qilich",
+      "item.elemental_tools_mod.qonliqilich_5": "Qonli Qilich",
+      "item.elemental_tools_mod.qonliqilich_6": "Qonli Qilich",
+      "item.elemental_tools_mod.qonliqilich_7": "Qonli Qilich"
     }
   },
   "metadata": {

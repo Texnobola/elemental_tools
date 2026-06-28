@@ -1,0 +1,6 @@
+{
+  "parent": "elemental_tools_mod:displaysettings/red_sword_stage7_display",
+  "textures": {
+    "layer0": "elemental_tools_mod:item/stage7_texture"
+  }
+}
