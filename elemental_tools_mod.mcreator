@@ -121,7 +121,7 @@
           "src/main/java/net/mcreator/elementaltoolsmod/procedures/Qonliqilich1LivingEntityIsHitWithItemeffect1Procedure.java"
         ]
       },
-      "path": "~/qilich"
+      "path": "~/qilich/Functions"
     },
     {
       "name": "Qonliqilich1",
@@ -138,7 +138,7 @@
           "src/main/resources/elemental_tools_mod.mixins.json"
         ]
       },
-      "path": "~/qilich"
+      "path": "~/qilich/Item"
     },
     {
       "name": "Qonitem",
@@ -152,7 +152,7 @@
           "src/main/java/net/mcreator/elementaltoolsmod/item/QonitemItem.java"
         ]
       },
-      "path": "~/qilich"
+      "path": "~/qilich/Item"
     },
     {
       "name": "QilichSharti",
@@ -175,7 +175,7 @@
           "src/main/java/net/mcreator/elementaltoolsmod/procedures/QilichShartiProcedure.java"
         ]
       },
-      "path": "~/qilich"
+      "path": "~/qilich/Functions"
     },
     {
       "name": "Qon",
@@ -188,7 +188,7 @@
           "src/main/resources/data/elemental_tools_mod/advancements/qon.json"
         ]
       },
-      "path": "~/qilich"
+      "path": "~/qilich/Daraja"
     },
     {
       "name": "Qilichsharti2",
@@ -207,7 +207,7 @@
           "src/main/java/net/mcreator/elementaltoolsmod/procedures/Qilichsharti2Procedure.java"
         ]
       },
-      "path": "~/qilich"
+      "path": "~/qilich/Functions"
     },
     {
       "name": "LifestealToggle",
@@ -219,7 +219,8 @@
         "files": [
           "src/main/java/net/mcreator/elementaltoolsmod/network/LifestealToggleMessage.java"
         ]
-      }
+      },
+      "path": "~/qilich/keybinds"
     },
     {
       "name": "LifestealToggleOnKeyPressed",
@@ -237,7 +238,8 @@
         "files": [
           "src/main/java/net/mcreator/elementaltoolsmod/procedures/LifestealToggleOnKeyPressedProcedure.java"
         ]
-      }
+      },
+      "path": "~/qilich/Functions"
     },
     {
       "name": "Killxp",
@@ -260,7 +262,7 @@
           "src/main/java/net/mcreator/elementaltoolsmod/procedures/KillxpProcedure.java"
         ]
       },
-      "path": "~/qilich"
+      "path": "~/qilich/Functions"
     }
   ],
   "variable_elements": [
@@ -404,7 +406,24 @@
       },
       {
         "name": "qilich",
-        "children": []
+        "children": [
+          {
+            "name": "Item",
+            "children": []
+          },
+          {
+            "name": "Functions",
+            "children": []
+          },
+          {
+            "name": "keybinds",
+            "children": []
+          },
+          {
+            "name": "Daraja",
+            "children": []
+          }
+        ]
       }
     ]
   },
