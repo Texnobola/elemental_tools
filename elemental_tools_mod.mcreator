@@ -21,7 +21,8 @@
           "src/main/java/net/mcreator/elementaltoolsmod/client/gui/TableguiScreen.java",
           "src/main/java/net/mcreator/elementaltoolsmod/world/inventory/TableguiMenu.java"
         ]
-      }
+      },
+      "path": "~/Stol"
     },
     {
       "name": "Kuchaytirishstoli",
@@ -43,7 +44,8 @@
           "src/main/java/net/mcreator/elementaltoolsmod/block/KuchaytirishstoliBlock.java",
           "src/main/resources/assets/elemental_tools_mod/models/item/kuchaytirishstoli.json"
         ]
-      }
+      },
+      "path": "~/Stol"
     },
     {
       "name": "Retsepstol",
@@ -55,7 +57,8 @@
         "files": [
           "src/main/resources/data/elemental_tools_mod/recipes/retsepstol.json"
         ]
-      }
+      },
+      "path": "~/Stol"
     },
     {
       "name": "Kuchayishvaqti",
@@ -67,7 +70,8 @@
         "files": [
           "src/main/resources/data/elemental_tools_mod/advancements/kuchayishvaqti.json"
         ]
-      }
+      },
+      "path": "~/Stol"
     },
     {
       "name": "KuchaytirishstoliBlockAddedIdleAnimation",
@@ -97,10 +101,266 @@
         "files": [
           "src/main/java/net/mcreator/elementaltoolsmod/procedures/KuchaytirishstoliBlockAddedIdleAnimationProcedure.java"
         ]
+      },
+      "path": "~/Stol"
+    },
+    {
+      "name": "Qonliqilich1LivingEntityIsHitWithItemeffect1",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qonliqilich_1_living_entity_is_hit_with_itemeffect_1",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ],
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/procedures/Qonliqilich1LivingEntityIsHitWithItemeffect1Procedure.java"
+        ]
+      },
+      "path": "~/qilich"
+    },
+    {
+      "name": "Qonliqilich1",
+      "type": "animateditem",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qonliqilich_1",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/item/Qonliqilich1Item.java",
+          "src/main/resources/assets/elemental_tools_mod/models/item/qonliqilich_1.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/model/Qonliqilich1ItemModel.java",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/renderer/Qonliqilich1ItemRenderer.java",
+          "src/main/resources/elemental_tools_mod.mixins.json"
+        ]
+      },
+      "path": "~/qilich"
+    },
+    {
+      "name": "Qonitem",
+      "type": "item",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qonitem",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/elemental_tools_mod/models/item/qonitem.json",
+          "src/main/java/net/mcreator/elementaltoolsmod/item/QonitemItem.java"
+        ]
+      },
+      "path": "~/qilich"
+    },
+    {
+      "name": "QilichSharti",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qilich_sharti",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "sourceentity",
+            "type": "entity"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ],
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/procedures/QilichShartiProcedure.java"
+        ]
+      },
+      "path": "~/qilich"
+    },
+    {
+      "name": "Qon",
+      "type": "achievement",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qon",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/elemental_tools_mod/advancements/qon.json"
+        ]
+      },
+      "path": "~/qilich"
+    },
+    {
+      "name": "Qilichsharti2",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "qilichsharti_2",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ],
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/procedures/Qilichsharti2Procedure.java"
+        ]
+      },
+      "path": "~/qilich"
+    },
+    {
+      "name": "LifestealToggle",
+      "type": "keybind",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "lifesteal_toggle",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/network/LifestealToggleMessage.java"
+        ]
       }
+    },
+    {
+      "name": "LifestealToggleOnKeyPressed",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "lifesteal_toggle_on_key_pressed",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ],
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/procedures/LifestealToggleOnKeyPressedProcedure.java"
+        ]
+      }
+    },
+    {
+      "name": "Killxpcode",
+      "type": "code",
+      "compiles": true,
+      "locked_code": true,
+      "registry_name": "killxpcode",
+      "metadata": {
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/Killxpcode.java"
+        ]
+      }
+    },
+    {
+      "name": "Killxp",
+      "type": "procedure",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "killxp",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "sourceentity",
+            "type": "entity"
+          }
+        ],
+        "files": [
+          "src/main/java/net/mcreator/elementaltoolsmod/procedures/KillxpProcedure.java"
+        ]
+      },
+      "path": "~/qilich"
     }
   ],
-  "variable_elements": [],
+  "variable_elements": [
+    {
+      "name": "kill_count",
+      "type": "number",
+      "scope": "world",
+      "value": "0"
+    },
+    {
+      "name": "lifesteal_toggle",
+      "type": "logic",
+      "scope": "player_persistent",
+      "value": "false"
+    },
+    {
+      "name": "lifesteal_cooldown",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "steal_amount_1",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "steal_amount_2",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "steal_amount_3",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "steal_amount_4",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "steal_amount_5",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "steal_timer_1",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "steal_timer_2",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "steal_timer_3",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "steal_timer_4",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "steal_timer_5",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    },
+    {
+      "name": "sword_xp",
+      "type": "number",
+      "scope": "player_persistent",
+      "value": "0"
+    }
+  ],
   "sound_elements": [],
   "tag_elements": {
     "BLOCKS:minecraft:mineable/pickaxe": [
@@ -108,6 +368,9 @@
     ],
     "BLOCKS:minecraft:needs_iron_tool": [
       "~CUSTOM:Kuchaytirishstoli"
+    ],
+    "ITEMS:mod:qonli_qilich_swords": [
+      "CUSTOM:Qonliqilich1"
     ]
   },
   "tab_element_order": {},
@@ -116,19 +379,29 @@
       "item_group.elemental_tools_mod.tab": "Elemental Tools",
       "block.elemental_tools_mod.kuchaytirishstoli": "Kuchaytirish stoli",
       "advancements.kuchayishvaqti.descr": "Kuchaytirish stolini yasa",
-      "advancements.kuchayishvaqti.title": "Kuchayish vaqti"
+      "advancements.kuchayishvaqti.title": "Kuchayish vaqti",
+      "item.elemental_tools_mod.qonliqilich_1": "Qonli Qilich",
+      "item.elemental_tools_mod.qonitem": "Qonitem",
+      "advancements.qon.title": "Qon",
+      "advancements.qon.descr": "Yuzta qonni yerga to\u0027k...",
+      "key.categories.elementaltools": "Elemental Tools",
+      "key.elemental_tools_mod.lifesteal_toggle": "Lifesteal"
     }
   },
   "metadata": {
     "files": [
+      "src/main/java/net/mcreator/elementaltoolsmod/network/ElementalToolsModModVariables.java",
       "src/main/resources/META-INF/mods.toml",
       "src/main/java/net/mcreator/elementaltoolsmod/ElementalToolsModMod.java",
       "src/main/resources/pack.mcmeta",
       "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModTabs.java",
       "src/main/java/net/mcreator/elementaltoolsmod/block/listener/ClientListener.java",
+      "src/main/java/net/mcreator/elementaltoolsmod/utils/AnimUtils.java",
+      "src/main/java/net/mcreator/elementaltoolsmod/init/ItemAnimationFactory.java",
       "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModScreens.java",
       "src/main/java/net/mcreator/elementaltoolsmod/network/MenuStateUpdateMessage.java",
       "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModMenus.java",
+      "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModKeyMappings.java",
       "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModBlocks.java",
       "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModBlockEntities.java",
       "src/main/java/net/mcreator/elementaltoolsmod/init/ElementalToolsModModItems.java"
@@ -136,7 +409,16 @@
   },
   "foldersRoot": {
     "name": "~",
-    "children": []
+    "children": [
+      {
+        "name": "Stol",
+        "children": []
+      },
+      {
+        "name": "qilich",
+        "children": []
+      }
+    ]
   },
   "workspaceSettings": {
     "modid": "elemental_tools_mod",

@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:poppy"
+    },
+    "title": {
+      "translate": "advancements.qon.title"
+    },
+    "description": {
+      "translate": "advancements.qon.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "qon_0": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "elemental_tools_mod:kuchayishvaqti"
+}

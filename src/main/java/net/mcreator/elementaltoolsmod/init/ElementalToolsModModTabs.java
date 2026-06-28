@@ -19,5 +19,6 @@ public class ElementalToolsModModTabs {
 	public static final RegistryObject<CreativeModeTab> TAB = REGISTRY.register("tab",
 			() -> CreativeModeTab.builder().title(Component.translatable("item_group.elemental_tools_mod.tab")).icon(() -> new ItemStack(Items.DIAMOND_SWORD)).displayItems((parameters, tabData) -> {
 				tabData.accept(ElementalToolsModModBlocks.KUCHAYTIRISHSTOLI.get().asItem());
+				tabData.accept(ElementalToolsModModItems.QONLIQILICH_1.get());
 			}).withSearchBar().build());
 }
