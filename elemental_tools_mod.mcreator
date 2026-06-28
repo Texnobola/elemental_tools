@@ -240,18 +240,6 @@
       }
     },
     {
-      "name": "Killxpcode",
-      "type": "code",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "killxpcode",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/elementaltoolsmod/Killxpcode.java"
-        ]
-      }
-    },
-    {
       "name": "Killxp",
       "type": "procedure",
       "compiles": true,
