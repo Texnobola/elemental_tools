@@ -19,24 +19,38 @@ import javax.annotation.Nullable;
 
 @Mod.EventBusSubscriber
 public class Qilichsharti2Procedure {
-	@SubscribeEvent
-	public static void onAdvancement(AdvancementEvent event) {
-		execute(event, event.getEntity());
-	}
 
-	public static void execute(Entity entity) {
-		execute(null, entity);
-	}
+    private static final ResourceLocation QON_ID =
+            ResourceLocation.parse("elemental_tools_mod:qon");
 
-	private static void execute(@Nullable Event event, Entity entity) {
-		if (entity == null)
-			return;
-		if (entity instanceof ServerPlayer _plr0 && _plr0.level() instanceof ServerLevel && _plr0.getAdvancements().getOrStartProgress(_plr0.server.getAdvancements().getAdvancement(ResourceLocation.parse("elemental_tools_mod:qon"))).isDone()) {
-			if (entity instanceof Player _player) {
-				ItemStack _setstack = new ItemStack(ElementalToolsModModItems.QONLIQILICH_1.get()).copy();
-				_setstack.setCount(1);
-				ItemHandlerHelper.giveItemToPlayer(_player, _setstack);
-			}
-		}
-	}
+    @SubscribeEvent
+    public static void onAdvancement(AdvancementEvent event) {
+        // ONLY fire when the Qon advancement itself is the one being granted
+        if (!event.getAdvancement().getId().equals(QON_ID))
+            return;
+        execute(event, event.getEntity());
+    }
+
+    public static void execute(Entity entity) {
+        execute(null, entity);
+    }
+
+    private static void execute(@Nullable Event event, Entity entity) {
+        if (entity == null)
+            return;
+        if (entity instanceof ServerPlayer _plr0
+                && _plr0.level() instanceof ServerLevel
+                && _plr0.getAdvancements()
+                        .getOrStartProgress(
+                                _plr0.server.getAdvancements()
+                                        .getAdvancement(QON_ID))
+                        .isDone()) {
+            if (entity instanceof Player _player) {
+                ItemStack _setstack =
+                        new ItemStack(ElementalToolsModModItems.QONLIQILICH_1.get()).copy();
+                _setstack.setCount(1);
+                ItemHandlerHelper.giveItemToPlayer(_player, _setstack);
+            }
+        }
+    }
 }

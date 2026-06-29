@@ -36,7 +36,7 @@
     },
     "hasGlow": false,
     "guiBoundTo": "<NONE>",
-    "inventorySize": 9,
+    "inventorySize": 0,
     "inventoryStackSize": 64,
     "onEntityHitWith": {
       "name": "Qonliqilich1LivingEntityIsHitWithItemeffect1"
