@@ -1,0 +1,53 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Client",
+      "presentation": {
+        "group": "Mod Development - elemental_tools_mod",
+        "order": 0
+      },
+      "projectName": "elemental_tools_mod",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Users\\dev\\MCreatorWorkspaces\\elemental_tools_mod\\build\\moddev\\clientRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Users\\dev\\MCreatorWorkspaces\\elemental_tools_mod\\build\\moddev\\clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003dmcreator%%C:\\Users\\dev\\MCreatorWorkspaces\\elemental_tools_mod\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {
+        "MOD_CLASSES": "mcreator%%C:\\Users\\dev\\MCreatorWorkspaces\\elemental_tools_mod\\bin\\main"
+      },
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Server",
+      "presentation": {
+        "group": "Mod Development - elemental_tools_mod",
+        "order": 1
+      },
+      "projectName": "elemental_tools_mod",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@C:\\Users\\dev\\MCreatorWorkspaces\\elemental_tools_mod\\build\\moddev\\serverRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@C:\\Users\\dev\\MCreatorWorkspaces\\elemental_tools_mod\\build\\moddev\\serverRunVmArgs.txt",
+        "-Dfml.modFolders\u003dmcreator%%C:\\Users\\dev\\MCreatorWorkspaces\\elemental_tools_mod\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {
+        "MOD_CLASSES": "mcreator%%C:\\Users\\dev\\MCreatorWorkspaces\\elemental_tools_mod\\bin\\main"
+      },
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    }
+  ]
+}

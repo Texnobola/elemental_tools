@@ -5,9 +5,13 @@ package net.mcreator.elementaltoolsmod.procedures.custom;
 //
 // Lives in its own "custom" sub-package so reopening the project in
 // MCreator and clicking "regenerate code" will NOT touch or delete this
-// file. MCreator treats the parent "procedures" package as fully owned
-// by its own code generator and will wipe unknown files there on rebuild.
-// Do not move this file into that parent package.
+// file. MCreator treats the parent "procedures" package (and the
+// network/ElementalToolsModModVariables.java file) as fully owned by its
+// own code generator and will overwrite/wipe unknown additions there on
+// rebuild. Do not move this file into that parent package, and do not
+// add fields to ElementalToolsModModVariables.java for this mechanic --
+// see BonusHeartsCapability.java for why a separate capability is used
+// for the one persistent value this mechanic needs.
 //
 // Mechanic ("Qonli Qilich" heart steal, per-hit):
 //   - Player attacks an entity (player or mob) while holding a Qonli
@@ -19,8 +23,10 @@ package net.mcreator.elementaltoolsmod.procedures.custom;
 //   - No floor on the victim's side -- repeated hits can shrink their
 //     max health all the way to 0 (and kill them by doing so).
 //   - Gated by a 600-tick (30 second) cooldown on the ATTACKER, using
-//     the existing global:lifesteal_cooldown player variable, and only
-//     fires at all while global:lifesteal_toggle is on for that player.
+//     the existing global:lifesteal_cooldown player variable (this one
+//     DOES already exist in MCreator's generated PlayerVariables, so
+//     it's safe to read/write directly), and only fires while
+//     global:lifesteal_toggle is on for that player.
 // ============================================================================
 
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -46,8 +52,8 @@ import java.util.UUID;
 @Mod.EventBusSubscriber
 public class HeartStealHandler {
 
-	// --- shared sword tag, same fix as before: must be the REAL mod
-	// namespace, "mod:" is not a magic alias for anything in Forge. ---
+	// --- shared sword tag: must be the REAL mod namespace, "mod:" is not
+	// a magic alias for anything in Forge. ---
 	private static final TagKey<Item> QONLI_QILICH_LIFESTEAL_TAG = ItemTags
 			.create(ResourceLocation.fromNamespaceAndPath("elemental_tools_mod", "qonli_qilich_lifesteal"));
 
@@ -93,7 +99,7 @@ public class HeartStealHandler {
 		// --- grant the attacker permanent max HP ---
 		// Safe to clamp/touch the attacker's current health here -- they are
 		// not the entity vanilla is about to apply this event's damage to.
-		adjustMaxHealth(attacker, damageDealt, PLAYER_HEARTS_MODIFIER_UUID, true);
+		adjustPlayerMaxHealth(attacker, damageDealt, true);
 
 		// --- remove permanent max HP from the victim, no floor ---
 		// IMPORTANT: do NOT clamp the victim's current health here. Vanilla
@@ -104,7 +110,7 @@ public class HeartStealHandler {
 		// after us. We only touch the victim's MAX_HEALTH attribute here and
 		// let vanilla's normal damage application take care of current health.
 		if (victim instanceof ServerPlayer victimPlayer) {
-			adjustMaxHealth(victimPlayer, -damageDealt, PLAYER_HEARTS_MODIFIER_UUID, false);
+			adjustPlayerMaxHealth(victimPlayer, -damageDealt, false);
 		} else {
 			adjustMobMaxHealth(victim, -damageDealt);
 		}
@@ -123,10 +129,11 @@ public class HeartStealHandler {
 	}
 
 	/**
-	 * Adjusts a PLAYER's permanent bonus_hearts offset (in HP, i.e.
-	 * 2.0 = 1 heart) by deltaHp, persists it, and re-applies the MAX_HEALTH
-	 * attribute modifier. No floor on the negative side -- per design, a
-	 * player's max health can shrink all the way to 0.
+	 * Adjusts a PLAYER's permanent bonus-hearts offset (in HP, i.e. 2.0 = 1
+	 * heart) by deltaHp, persists it via BonusHeartsCapability (NOT via
+	 * MCreator's PlayerVariables -- see file header), and re-applies the
+	 * MAX_HEALTH attribute modifier. No floor on the negative side -- per
+	 * design, a player's max health can shrink all the way to 0.
 	 *
 	 * @param clampCurrentHealth pass true ONLY when this entity is not the
 	 *                           one currently being hurt by the in-progress
@@ -138,24 +145,14 @@ public class HeartStealHandler {
 	 *                           health right after this event finishes --
 	 *                           clamping here too would subtract it twice.
 	 */
-	private static void adjustMaxHealth(ServerPlayer player, double deltaHp, UUID modifierUuid, boolean clampCurrentHealth) {
-		ElementalToolsModModVariables.PlayerVariables vars = player
-				.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null)
-				.orElseGet(ElementalToolsModModVariables.PlayerVariables::new);
-
-		double newOffset = vars.bonus_hearts + deltaHp;
-
-		final double offsetToApply = newOffset;
-		player.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-			capability.bonus_hearts = offsetToApply;
-			capability.syncPlayerVariables(player);
-		});
-
-		applyPlayerMaxHealthModifier(player, newOffset, modifierUuid, clampCurrentHealth);
+	private static void adjustPlayerMaxHealth(ServerPlayer player, double deltaHp, boolean clampCurrentHealth) {
+		double newOffset = BonusHeartsCapability.get(player) + deltaHp;
+		BonusHeartsCapability.set(player, newOffset);
+		applyMaxHealthModifier(player, newOffset, PLAYER_HEARTS_MODIFIER_UUID, clampCurrentHealth);
 	}
 
-	private static void applyPlayerMaxHealthModifier(ServerPlayer player, double offset, UUID modifierUuid, boolean clampCurrentHealth) {
-		AttributeInstance maxHealthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
+	private static void applyMaxHealthModifier(LivingEntity entity, double offset, UUID modifierUuid, boolean clampCurrentHealth) {
+		AttributeInstance maxHealthAttribute = entity.getAttribute(Attributes.MAX_HEALTH);
 		if (maxHealthAttribute == null)
 			return;
 
@@ -167,14 +164,14 @@ public class HeartStealHandler {
 				new AttributeModifier(modifierUuid, HEARTS_MODIFIER_NAME, offset, AttributeModifier.Operation.ADDITION));
 
 		if (clampCurrentHealth)
-			clampCurrentHealthToMax(player, maxHealthAttribute);
+			clampCurrentHealthToMax(entity, maxHealthAttribute);
 	}
 
 	/**
-	 * Mobs don't have our PlayerVariables capability, and most are short-lived
-	 * (killed shortly after losing hearts anyway), so for non-player victims
-	 * we just mutate their live MAX_HEALTH attribute directly -- no separate
-	 * persistent storage needed.
+	 * Mobs don't have a BonusHeartsCapability instance (it's only attached
+	 * to Player entities), and most are short-lived (killed shortly after
+	 * losing hearts anyway), so for non-player victims we just mutate their
+	 * live MAX_HEALTH attribute directly -- no persistent storage needed.
 	 *
 	 * IMPORTANT: does NOT clamp current health here, for the same reason as
 	 * the player path above -- this mob is the victim of the in-progress
@@ -190,11 +187,7 @@ public class HeartStealHandler {
 		double currentOffset = existing != null ? existing.getAmount() : 0.0D;
 		double newOffset = currentOffset + deltaHp;
 
-		if (existing != null)
-			maxHealthAttribute.removeModifier(existing);
-
-		maxHealthAttribute.addPermanentModifier(
-				new AttributeModifier(MOB_HEARTS_MODIFIER_UUID, HEARTS_MODIFIER_NAME, newOffset, AttributeModifier.Operation.ADDITION));
+		applyMaxHealthModifier(mob, newOffset, MOB_HEARTS_MODIFIER_UUID, false);
 
 		// If max health has been driven to 0 or below, finish the kill
 		// directly -- vanilla doesn't auto-kill on an attribute change
@@ -208,10 +201,6 @@ public class HeartStealHandler {
 	private static void clampCurrentHealthToMax(LivingEntity entity, AttributeInstance maxHealthAttribute) {
 		double newMax = maxHealthAttribute.getValue();
 		if (newMax <= 0.0D) {
-			// handled by the kill check in adjustMobMaxHealth for mobs; for a
-			// player this realistically won't happen since they'd hit 0
-			// current HP and die through normal damage long before max HP
-			// would reach 0 from this mod alone, but guard anyway.
 			entity.setHealth(0.0F);
 		} else if (entity.getHealth() > newMax) {
 			entity.setHealth((float) newMax);
@@ -219,15 +208,13 @@ public class HeartStealHandler {
 	}
 
 	/**
-	 * Called on player login/respawn so the persisted bonus_hearts offset is
+	 * Called on player login/respawn so the persisted bonus-hearts offset is
 	 * reflected in their MAX_HEALTH attribute immediately -- otherwise a
 	 * fresh login after a server restart would show vanilla 20 HP until the
 	 * next hit re-triggers the modifier.
 	 */
 	public static void reapplyStoredMaxHealth(ServerPlayer player) {
-		ElementalToolsModModVariables.PlayerVariables vars = player
-				.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null)
-				.orElseGet(ElementalToolsModModVariables.PlayerVariables::new);
-		applyPlayerMaxHealthModifier(player, vars.bonus_hearts, PLAYER_HEARTS_MODIFIER_UUID, true);
+		double offset = BonusHeartsCapability.get(player);
+		applyMaxHealthModifier(player, offset, PLAYER_HEARTS_MODIFIER_UUID, true);
 	}
 }
