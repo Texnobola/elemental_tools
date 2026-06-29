@@ -34,6 +34,9 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+
+import net.mcreator.elementaltoolsmod.network.SyncCustomDataMessage;
 
 @Mod.EventBusSubscriber
 public class BonusHeartsCapability {
@@ -95,10 +98,17 @@ public class BonusHeartsCapability {
 	 * Carries the value across the death->respawn entity swap, same as
 	 * MCreator does for its own PlayerVariables capability via PlayerEvent.Clone.
 	 */
+	/**
+	 * Carries the value across the death->respawn entity swap, same as
+	 * MCreator does for its own PlayerVariables capability via PlayerEvent.Clone.
+	 */
 	@SubscribeEvent
 	public static void onPlayerClone(PlayerEvent.Clone event) {
 		double originalValue = get(event.getOriginal());
 		set(event.getEntity(), originalValue);
+		if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+			SyncCustomDataMessage.send(serverPlayer);
+		}
 	}
 
 	// --- simple static accessors, so callers don't need to touch the capability API directly ---
@@ -108,6 +118,11 @@ public class BonusHeartsCapability {
 	}
 
 	public static void set(Entity entity, double value) {
-		entity.getCapability(CAPABILITY, null).ifPresent(h -> h.bonusHearts = value);
+		entity.getCapability(CAPABILITY, null).ifPresent(h -> {
+			h.bonusHearts = value;
+			if (entity instanceof ServerPlayer serverPlayer) {
+				SyncCustomDataMessage.send(serverPlayer);
+			}
+		});
 	}
 }

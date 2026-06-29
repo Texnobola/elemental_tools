@@ -42,16 +42,14 @@ public class ElementalToolsModMod {
 		// End of user code block mod constructor
 		MinecraftForge.EVENT_BUS.register(this);
 		IEventBus bus = context.getModEventBus();
-
 		ElementalToolsModModBlocks.REGISTRY.register(bus);
 		ElementalToolsModModBlockEntities.REGISTRY.register(bus);
 		ElementalToolsModModItems.REGISTRY.register(bus);
-
 		ElementalToolsModModTabs.REGISTRY.register(bus);
-
 		ElementalToolsModModMenus.REGISTRY.register(bus);
-
 		// Start of user code block mod init
+		bus.addListener(net.mcreator.elementaltoolsmod.network.DashMessage::registerMessage);
+		bus.addListener(net.mcreator.elementaltoolsmod.network.SyncCustomDataMessage::registerMessage);
 		// End of user code block mod init
 	}
 

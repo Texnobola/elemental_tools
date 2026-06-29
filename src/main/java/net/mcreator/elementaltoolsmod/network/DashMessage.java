@@ -54,7 +54,6 @@ public class DashMessage {
 		}
 	}
 
-	@SubscribeEvent
 	public static void registerMessage(FMLCommonSetupEvent event) {
 		ElementalToolsModMod.addNetworkMessage(DashMessage.class, DashMessage::buffer, DashMessage::new, DashMessage::handler);
 	}

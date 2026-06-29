@@ -16,20 +16,25 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
 
 import net.mcreator.elementaltoolsmod.network.ElementalToolsModModVariables;
+import net.mcreator.elementaltoolsmod.procedures.custom.DashCapability;
+import net.mcreator.elementaltoolsmod.network.SyncCustomDataMessage;
 
 public class DashProcedure {
 	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
 		
-		double cooldown = (entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null)
-				.orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).dash_cooldown;
+		DashCapability.DashHolder dashData = entity.getCapability(DashCapability.CAPABILITY, null)
+				.orElseGet(DashCapability.DashHolder::new);
+		double cooldown = dashData.dashCooldown;
 
 		if (cooldown <= 0) {
 			// Set cooldown to 10 seconds (200 ticks)
-			entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-				capability.dash_cooldown = 200;
-				capability.syncPlayerVariables(entity);
+			entity.getCapability(DashCapability.CAPABILITY, null).ifPresent(capability -> {
+				capability.dashCooldown = 200;
+				if (entity instanceof ServerPlayer serverPlayer) {
+					SyncCustomDataMessage.send(serverPlayer);
+				}
 			});
 
 			// Dash logic
@@ -37,7 +42,7 @@ public class DashProcedure {
 			double dashDistance = 5.0;
 			
 			// Collision detection: Check if there's a block in the dash path
-			Vec3 startPos = entity.eyePosition();
+			Vec3 startPos = entity.getEyePosition(1.0f);
 			Vec3 endPos = startPos.add(lookVec.scale(dashDistance));
 			
 			BlockHitResult hitResult = world.clip(new ClipContext(startPos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
@@ -66,11 +71,11 @@ public class DashProcedure {
 			if (world instanceof Level _level) {
 				if (!_level.isClientSide()) {
 					_level.playSound(null, BlockPos.containing(x, y, z), 
-						ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.fromNamespaceAndPath("minecraft", "entity.ender_drag_fly")), 
+						ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.fromNamespaceAndPath("minecraft", "entity.ender_dragon.flap")), 
 						SoundSource.PLAYERS, 1, 1);
 				} else {
 					_level.playLocalSound(x, y, z, 
-						ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.fromNamespaceAndPath("minecraft", "entity.ender_drag_fly")), 
+						ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.fromNamespaceAndPath("minecraft", "entity.ender_dragon.flap")), 
 						SoundSource.PLAYERS, 1, 1, false);
 				}
 			}

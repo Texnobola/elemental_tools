@@ -14,6 +14,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.mcreator.elementaltoolsmod.ElementalToolsModMod;
 import net.mcreator.elementaltoolsmod.init.ElementalToolsModModItems;
 import net.mcreator.elementaltoolsmod.network.ElementalToolsModModVariables;
+import net.mcreator.elementaltoolsmod.procedures.custom.DashCapability;
+import net.mcreator.elementaltoolsmod.procedures.custom.BonusHeartsCapability;
 
 /**
  * SwordHUDRenderer — Qonli Qilich ability HUD, bottom-left corner.
@@ -122,7 +124,12 @@ cy += 10;
 
 // XP display: shows accumulated sword_xp, right-aligned on its own line
 String xpStr = "XP: " + (int) vars.sword_xp;
-gfx.drawString(mc.font, xpStr, cx, cy, C_TIMER, false);
+gfx.drawString(mc.font, xpStr, cx, cy, 0xFFFFFFFF, false); // White for visibility
+// Bonus Hearts display: shows accumulated bonus_hearts from capability
+double heartsValue = BonusHeartsCapability.get(player);
+String heartStr = "Hearts: +" + String.format("%.1f", heartsValue / 2.0);
+int heartX = px + panelW - PAD - mc.font.width(heartStr);
+gfx.drawString(mc.font, heartStr, heartX, cy, 0xFFFF4444, false);
 cy += 10;
         // Separator line
         gfx.fill(cx, cy, px + panelW - PAD, cy + 1, C_ACCENT);
@@ -137,8 +144,9 @@ cy += 10;
         cy += ROW_H;
 
         // 2. DASH (stage 4+)
+        int dashCd = player.getCapability(DashCapability.CAPABILITY, null).map(c -> (int) c.dashCooldown).orElse(0);
         drawRow(gfx, mc, cx, cy, ICON_DASH, "Dash",
-                stage >= 4, (int) vars.dash_cooldown, DASH_MAX,
+                stage >= 4, dashCd, DASH_MAX,
                 false, false, false);
         cy += ROW_H;
 

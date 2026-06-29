@@ -15,6 +15,9 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraft.world.entity.Entity;
 
 import net.mcreator.elementaltoolsmod.network.ElementalToolsModModVariables;
+import net.mcreator.elementaltoolsmod.procedures.custom.DashCapability;
+import net.mcreator.elementaltoolsmod.network.SyncCustomDataMessage;
+import net.minecraft.server.level.ServerPlayer;
 
 import javax.annotation.Nullable;
 
@@ -41,12 +44,17 @@ public class StealDecayProcedure {
 				capability.syncPlayerVariables(entity);
 			});
 		}
-		if ((entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).dash_cooldown > 0) {
-			double _setval = (entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).dash_cooldown - 1;
-			entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-				capability.dash_cooldown = _setval;
-				capability.syncPlayerVariables(entity);
-			});
-		}
+		entity.getCapability(DashCapability.CAPABILITY, null).ifPresent(capability -> {
+			if (capability.dashCooldown > 0) {
+				capability.dashCooldown = capability.dashCooldown - 1;
+				// Sync every 5 ticks to keep HUD smooth without flooding network
+				if (entity instanceof ServerPlayer serverPlayer && serverPlayer.level().getGameTime() % 5 == 0) {
+					SyncCustomDataMessage.send(serverPlayer);
+				}
+			} else if (capability.dashCooldown == 0 && entity instanceof ServerPlayer serverPlayer && serverPlayer.level().getGameTime() % 20 == 0) {
+				// Also sync occasionally when at 0 to ensure client knows it's READY
+				SyncCustomDataMessage.send(serverPlayer);
+			}
+		});
 	}
 }
