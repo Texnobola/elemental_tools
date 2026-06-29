@@ -401,7 +401,7 @@
       "name": "Passiveeffects",
       "type": "procedure",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "passiveeffects",
       "metadata": {
         "dependencies": [
@@ -439,7 +439,7 @@
       "name": "StealDecay",
       "type": "procedure",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "steal_decay",
       "metadata": {
         "dependencies": [

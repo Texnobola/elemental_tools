@@ -89,7 +89,7 @@ public class SwordHUDRenderer {
         // ── Panel dimensions ─────────────────────────────────────────────────
         // 4 ability rows + title block + separator
         int panelW = PAD + ICON_SIZE + 4 + BAR_W + 44 + PAD;  // ~150px
-        int panelH = PAD + 18 + 2 + (ROW_H * 4) + PAD;        // title+sep+rows
+int panelH = PAD + 18 + 10 + 2 + (ROW_H * 4) + PAD;   // title+xp+sep+rows
 
         int px = PANEL_X;
         int py = screenH - 22 - panelH - 3;  // just above hotbar
@@ -116,10 +116,14 @@ public class SwordHUDRenderer {
         gfx.drawString(mc.font, stageStr, stageX, cy, C_STAGE, false);
         cy += 10;
 
-        // Sub-label: sword name in smaller muted text
-        gfx.drawString(mc.font, "Stage " + stage + " Sword", cx, cy, 0xFF886644, false);
-        cy += 10;
+    // Sub-label: sword name in smaller muted text
+gfx.drawString(mc.font, "Stage " + stage + " Sword", cx, cy, 0xFF886644, false);
+cy += 10;
 
+// XP display: shows accumulated sword_xp, right-aligned on its own line
+String xpStr = "XP: " + (int) vars.sword_xp;
+gfx.drawString(mc.font, xpStr, cx, cy, C_TIMER, false);
+cy += 10;
         // Separator line
         gfx.fill(cx, cy, px + panelW - PAD, cy + 1, C_ACCENT);
         cy += 5;
