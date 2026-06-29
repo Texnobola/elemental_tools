@@ -41,5 +41,12 @@ public class StealDecayProcedure {
 				capability.syncPlayerVariables(entity);
 			});
 		}
+		if ((entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).dash_cooldown > 0) {
+			double _setval = (entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).dash_cooldown - 1;
+			entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+				capability.dash_cooldown = _setval;
+				capability.syncPlayerVariables(entity);
+			});
+		}
 	}
 }

@@ -136,10 +136,9 @@ cy += 10;
                 vars.lifesteal_toggle, false, false);
         cy += ROW_H;
 
-        // 2. DASH (stage 4+)  — wire dash_cooldown here once variable exists
-        int dashCd = 0; // TODO: replace with (int) vars.dash_cooldown
+        // 2. DASH (stage 4+)
         drawRow(gfx, mc, cx, cy, ICON_DASH, "Dash",
-                stage >= 4, dashCd, DASH_MAX,
+                stage >= 4, (int) vars.dash_cooldown, DASH_MAX,
                 false, false, false);
         cy += ROW_H;
 
