@@ -10,11 +10,7 @@
     "displaySettings": "red_sword_stage1_display.json",
     "leftArm": "",
     "rightArm": "",
-    "creativeTabs": [
-      {
-        "value": "CUSTOM:Tab"
-      }
-    ],
+    "creativeTabs": [],
     "firstPersonArms": false,
     "stackSize": 1,
     "enchantability": 64,

@@ -21,11 +21,7 @@ public class ElementalToolsModModTabs {
 				tabData.accept(ElementalToolsModModBlocks.KUCHAYTIRISHSTOLI.get().asItem());
 				tabData.accept(ElementalToolsModModItems.QONLIQILICH_1.get());
 				tabData.accept(ElementalToolsModModItems.BLOODCAN.get());
-				tabData.accept(ElementalToolsModModItems.QONLIQILICH_2.get());
-				tabData.accept(ElementalToolsModModItems.QONLIQILICH_3.get());
 				tabData.accept(ElementalToolsModModItems.QONLIQILICH_4.get());
-				tabData.accept(ElementalToolsModModItems.QONLIQILICH_5.get());
-				tabData.accept(ElementalToolsModModItems.QONLIQILICH_6.get());
 				tabData.accept(ElementalToolsModModItems.QONLIQILICH_7.get());
 			}).withSearchBar().build());
 }

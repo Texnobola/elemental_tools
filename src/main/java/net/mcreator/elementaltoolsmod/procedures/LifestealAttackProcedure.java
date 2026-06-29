@@ -21,79 +21,112 @@ public class LifestealAttackProcedure {
 	@SubscribeEvent
 	public static void onEntityAttacked(LivingAttackEvent event) {
 		if (event != null && event.getEntity() != null) {
-			execute(event, event.getSource().getEntity(), event.getAmount());
+			execute(event, event.getSource().getEntity());
 		}
 	}
 
 	public static void execute(Entity sourceentity) {
-		execute(null, sourceentity, 0f);
+		execute(null, sourceentity);
 	}
 
-	private static void execute(@Nullable Event event, Entity sourceentity, float damageAmount) {
+	private static void execute(@Nullable Event event, Entity sourceentity) {
 		if (sourceentity == null)
 			return;
-
-		var playerCap = sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null)
-				.orElseGet(ElementalToolsModModVariables.PlayerVariables::new);
-
-		boolean hasLifestealSword =
-				(sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY)
-						.is(ItemTags.create(ResourceLocation.parse("mod:qonli_qilich_lifesteal")))
-				|| (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY)
-						.is(ItemTags.create(ResourceLocation.parse("mod:qonli_qilich_lifesteal")));
-
-		boolean isPlayer = (ForgeRegistries.ENTITY_TYPES.getKey(sourceentity.getType()).toString()).equals("minecraft:player");
-
-		// Only run lifesteal logic if: toggle on + sword equipped + is player + cooldown ready
-		if (playerCap.lifesteal_toggle && hasLifestealSword && isPlayer && playerCap.lifesteal_cooldown <= 0) {
-
-			// FIX 1: Use actual damage dealt (damageAmount), not getDamageValue()
-			if (sourceentity instanceof LivingEntity _entity) {
-				_entity.setHealth(_entity.getHealth() + damageAmount);
+		if ((sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).lifesteal_toggle
+				&& ((sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).is(ItemTags.create(ResourceLocation.parse("mod:qonli_qilich_lifesteal")))
+						|| (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).is(ItemTags.create(ResourceLocation.parse("mod:qonli_qilich_lifesteal"))))
+				&& (ForgeRegistries.ENTITY_TYPES.getKey(sourceentity.getType()).toString()).equals("minecraft:player")
+				&& (sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).lifesteal_cooldown <= 0) {
+			if (sourceentity instanceof LivingEntity _entity)
+				_entity.setHealth((sourceentity instanceof LivingEntity _livEnt ? _livEnt.getHealth() : -1) + (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getDamageValue());
+			{
+				double _setval = 600;
+				sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.lifesteal_cooldown = _setval;
+					capability.syncPlayerVariables(sourceentity);
+				});
 			}
-
-			// Start cooldown
-			sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-				capability.lifesteal_cooldown = 600;
-				capability.syncPlayerVariables(sourceentity);
-			});
-
-			// FIX 2: Slot filling is now INSIDE the lifesteal condition
-			// Fill the first available steal slot, or refresh slot 1 if all full
-			if (playerCap.steal_timer_1 <= 0) {
+		}
+		if ((sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).steal_timer_1 <= 0) {
+			{
+				double _setval = (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getDamageValue();
 				sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.steal_amount_1 = damageAmount;
-					capability.steal_timer_1 = 5020;
+					capability.steal_amount_1 = _setval;
 					capability.syncPlayerVariables(sourceentity);
 				});
-			} else if (playerCap.steal_timer_2 <= 0) {
+			}
+			{
+				double _setval = 5020;
 				sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.steal_amount_2 = damageAmount;
-					capability.steal_timer_2 = 5020;
+					capability.steal_timer_1 = _setval;
 					capability.syncPlayerVariables(sourceentity);
 				});
-			} else if (playerCap.steal_timer_3 <= 0) {
+			}
+		} else if ((sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).steal_timer_2 <= 0) {
+			{
+				double _setval = (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getDamageValue();
 				sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.steal_amount_3 = damageAmount;
-					capability.steal_timer_3 = 5020;
+					capability.steal_amount_2 = _setval;
 					capability.syncPlayerVariables(sourceentity);
 				});
-			} else if (playerCap.steal_timer_4 <= 0) {
+			}
+			{
+				double _setval = 5020;
 				sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.steal_amount_4 = damageAmount;
-					capability.steal_timer_4 = 5020;
+					capability.steal_timer_2 = _setval;
 					capability.syncPlayerVariables(sourceentity);
 				});
-			} else if (playerCap.steal_timer_5 <= 0) {
+			}
+		} else if ((sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).steal_timer_3 <= 0) {
+			{
+				double _setval = (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getDamageValue();
 				sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.steal_amount_5 = damageAmount;
-					capability.steal_timer_5 = 5020;
+					capability.steal_amount_3 = _setval;
 					capability.syncPlayerVariables(sourceentity);
 				});
-			} else {
-				// All slots full — refresh slot 1
+			}
+			{
+				double _setval = 5020;
 				sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-					capability.steal_timer_1 = 5020;
+					capability.steal_timer_3 = _setval;
+					capability.syncPlayerVariables(sourceentity);
+				});
+			}
+		} else if ((sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).steal_timer_4 <= 0) {
+			{
+				double _setval = (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getDamageValue();
+				sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.steal_amount_4 = _setval;
+					capability.syncPlayerVariables(sourceentity);
+				});
+			}
+			{
+				double _setval = 5020;
+				sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.steal_timer_4 = _setval;
+					capability.syncPlayerVariables(sourceentity);
+				});
+			}
+		} else if ((sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).steal_timer_5 <= 0) {
+			{
+				double _setval = (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getDamageValue();
+				sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.steal_amount_5 = _setval;
+					capability.syncPlayerVariables(sourceentity);
+				});
+			}
+			{
+				double _setval = 5020;
+				sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.steal_timer_5 = _setval;
+					capability.syncPlayerVariables(sourceentity);
+				});
+			}
+		} else {
+			{
+				double _setval = 5020;
+				sourceentity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+					capability.steal_timer_1 = _setval;
 					capability.syncPlayerVariables(sourceentity);
 				});
 			}
