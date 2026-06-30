@@ -50,6 +50,7 @@ public class ElementalToolsModMod {
 		// Start of user code block mod init
 		bus.addListener(net.mcreator.elementaltoolsmod.network.DashMessage::registerMessage);
 		bus.addListener(net.mcreator.elementaltoolsmod.network.SyncCustomDataMessage::registerMessage);
+		bus.addListener(net.mcreator.elementaltoolsmod.network.SpawnVFXMessage::registerMessage);
 		// End of user code block mod init
 	}
 

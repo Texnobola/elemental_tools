@@ -1,15 +1,4 @@
 repositories {
-        maven {
-            url = "https://maven.firstdark.dev/snapshots"
-        }
-    }
-dependencies {
-  modImplementation("com.lowdragmc.ldlib:ldlib-forge-1.20.1:1.0.50") { transitive = false }
-  modImplementation("com.lowdragmc.photon:photon-forge-1.20.1:1.1.17") { transitive = false }
-}
-
-
-repositories {
   maven {
       url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
   }

@@ -22,12 +22,6 @@ authors="MCreator"
 
 
 [[dependencies.elemental_tools_mod]]
-    modId="photon"
-    mandatory=false
-    versionRange="[0,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.elemental_tools_mod]]
     modId="geckolib"
     mandatory=false
     versionRange="[0,)"

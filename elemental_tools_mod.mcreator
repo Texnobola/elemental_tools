@@ -682,7 +682,6 @@
     "dependencies": [],
     "dependants": [],
     "mcreatorDependencies": [
-      "photon",
       "geckolib"
     ],
     "currentGenerator": "forge-1.20.1",

@@ -18,6 +18,9 @@ import net.minecraft.core.BlockPos;
 import net.mcreator.elementaltoolsmod.network.ElementalToolsModModVariables;
 import net.mcreator.elementaltoolsmod.procedures.custom.DashCapability;
 import net.mcreator.elementaltoolsmod.network.SyncCustomDataMessage;
+import net.mcreator.elementaltoolsmod.network.SpawnVFXMessage;
+import net.mcreator.elementaltoolsmod.ElementalToolsModMod;
+import net.minecraftforge.network.PacketDistributor;
 
 public class DashProcedure {
 	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
@@ -29,14 +32,6 @@ public class DashProcedure {
 		double cooldown = dashData.dashCooldown;
 
 		if (cooldown <= 0) {
-			// Set cooldown to 10 seconds (200 ticks)
-			entity.getCapability(DashCapability.CAPABILITY, null).ifPresent(capability -> {
-				capability.dashCooldown = 200;
-				if (entity instanceof ServerPlayer serverPlayer) {
-					SyncCustomDataMessage.send(serverPlayer);
-				}
-			});
-
 			// Dash logic
 			Vec3 lookVec = entity.getLookAngle();
 			double dashDistance = 5.0;
@@ -58,14 +53,16 @@ public class DashProcedure {
 			// Apply movement
 			// We use teleport to ensure precise 5 block movement as requested, 
 			// but maintain some velocity for "feel"
+			Vec3 _finalTarget = finalTarget;
+			Vec3 _lookVec = lookVec;
 			if (entity instanceof ServerPlayer _serverPlayer) {
-				_serverPlayer.teleportTo(finalTarget.x, finalTarget.y, finalTarget.z);
+				_serverPlayer.teleportTo(_finalTarget.x, _finalTarget.y, _finalTarget.z);
 			} else {
-				entity.setPos(finalTarget.x, finalTarget.y, finalTarget.z);
+				entity.setPos(_finalTarget.x, _finalTarget.y, _finalTarget.z);
 			}
 			
 			// Optional: add some velocity in the dash direction to make it feel smoother
-			entity.setDeltaMovement(lookVec.scale(0.5));
+			entity.setDeltaMovement(_lookVec.scale(0.5));
 
 			// Sound feedback
 			if (world instanceof Level _level) {
@@ -79,6 +76,25 @@ public class DashProcedure {
 						SoundSource.PLAYERS, 1, 1, false);
 				}
 			}
+
+			// Set cooldown to 10 seconds (200 ticks)
+			entity.getCapability(DashCapability.CAPABILITY, null).ifPresent(capability -> {
+				capability.dashCooldown = 200;
+				if (entity instanceof ServerPlayer serverPlayer) {
+					SyncCustomDataMessage.send(serverPlayer);
+					// Spawn Bloody Dash VFX at 5 points along the path for a continuous trail
+                    Vec3 start = serverPlayer.position();
+                    Vec3 direction = _lookVec;
+                    
+                    for (int i = 0; i <= 4; i++) {
+                        double dist = i * (dashDistance / 4.0);
+                        Vec3 spawnPos = start.add(direction.scale(dist));
+                        // System.out.println("[Elemental Tools] Sending SpawnVFXMessage for point " + i + " at " + spawnPos);
+                        ElementalToolsModMod.PACKET_HANDLER.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> serverPlayer), 
+                            new SpawnVFXMessage(spawnPos.x, spawnPos.y + 0.5, spawnPos.z, "lodestone:bloody_dash"));
+                    }
+				}
+			});
 		}
 	}
 }

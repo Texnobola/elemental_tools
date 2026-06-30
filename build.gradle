@@ -6,6 +6,16 @@ plugins {
 version = '1.0'
 base.archivesName = "modid"
 
+repositories {
+    mavenCentral()
+    maven {
+        url = 'https://maven.blamejared.com/'
+    }
+    maven {
+        url = 'https://maven.theillusivec4.top/'
+    }
+}
+
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 legacyForge {
@@ -53,6 +63,11 @@ mixin {
 dependencies {
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    modImplementation "team.lodestar.lodestone:lodestone:1.20.1-1.4.2.62"
+    
+    // Curios is required by Lodestone on Forge
+    compileOnly "top.theillusivec4.curios:curios-forge:5.4.1+1.20.1:api"
+    runtimeOnly "top.theillusivec4.curios:curios-forge:5.4.1+1.20.1"
 }
 
 jar {
