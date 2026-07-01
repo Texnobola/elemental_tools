@@ -15,6 +15,7 @@ import net.minecraft.core.BlockPos;
 
 import net.mcreator.elementaltoolsmod.network.ElementalToolsModModVariables;
 import net.mcreator.elementaltoolsmod.procedures.custom.DashCapability;
+import net.mcreator.elementaltoolsmod.procedures.custom.CheatCapability;
 import net.mcreator.elementaltoolsmod.network.SyncCustomDataMessage;
 import net.mcreator.elementaltoolsmod.network.SpawnVFXMessage;
 import net.mcreator.elementaltoolsmod.init.ElementalToolsModModItems;
@@ -33,11 +34,13 @@ public class DashProcedure {
 			return; // Ability not unlocked yet
 		}
 		
+		boolean bypassCooldown = CheatCapability.areCooldownsDisabled(entity);
+
 		DashCapability.DashHolder dashData = entity.getCapability(DashCapability.CAPABILITY, null)
 				.orElseGet(DashCapability.DashHolder::new);
 		double cooldown = dashData.dashCooldown;
 
-		if (cooldown <= 0) {
+		if (cooldown <= 0 || bypassCooldown) {
 			// Dash logic
 			Vec3 lookVec = entity.getLookAngle();
 			double dashDistance = 5.0;

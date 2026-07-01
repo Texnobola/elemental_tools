@@ -21,6 +21,7 @@ import net.mcreator.elementaltoolsmod.network.ElementalToolsModModVariables;
 import net.mcreator.elementaltoolsmod.network.PlayPlayerAnimationMessage;
 import net.mcreator.elementaltoolsmod.network.SpawnVFXMessage;
 import net.mcreator.elementaltoolsmod.procedures.custom.CritSpinHelper;
+import net.mcreator.elementaltoolsmod.procedures.custom.CheatCapability;
 import net.mcreator.elementaltoolsmod.init.ElementalToolsModModItems;
 import net.mcreator.elementaltoolsmod.init.ElementalToolsModModSounds;
 import net.mcreator.elementaltoolsmod.ElementalToolsModMod;
@@ -40,8 +41,10 @@ public class CritWaveProcedure {
         if (stage < 5)
             return;
 
+        boolean bypassCooldown = CheatCapability.areCooldownsDisabled(entity);
+
         entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
-            if (capability.crit_cooldown <= 0) {
+            if (capability.crit_cooldown <= 0 || bypassCooldown) {
                 capability.crit_cooldown = 300; // 15 seconds (300 ticks)
                 capability.syncPlayerVariables(entity);
 

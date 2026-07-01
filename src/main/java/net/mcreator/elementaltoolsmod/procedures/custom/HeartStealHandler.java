@@ -48,6 +48,7 @@ import net.minecraft.sounds.SoundSource;
 
 import net.mcreator.elementaltoolsmod.init.ElementalToolsModModSounds;
 import net.mcreator.elementaltoolsmod.network.ElementalToolsModModVariables;
+import net.mcreator.elementaltoolsmod.procedures.custom.CheatCapability;
 
 import java.util.UUID;
 
@@ -88,7 +89,9 @@ public class HeartStealHandler {
 
 		if (!vars.lifesteal_toggle)
 			return;
-		if (vars.lifesteal_cooldown > 0)
+		
+		boolean bypassCooldown = CheatCapability.areCooldownsDisabled(attacker);
+		if (vars.lifesteal_cooldown > 0 && !bypassCooldown)
 			return;
 
 		// getAmount() here is the FINAL damage (post armor/enchant/effects) --
