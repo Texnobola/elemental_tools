@@ -44,7 +44,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.sounds.SoundSource;
 
+import net.mcreator.elementaltoolsmod.init.ElementalToolsModModSounds;
 import net.mcreator.elementaltoolsmod.network.ElementalToolsModModVariables;
 
 import java.util.UUID;
@@ -100,6 +102,10 @@ public class HeartStealHandler {
 		// Safe to clamp/touch the attacker's current health here -- they are
 		// not the entity vanilla is about to apply this event's damage to.
 		adjustPlayerMaxHealth(attacker, damageDealt, true);
+
+		// Play Lifesteal SFX
+		attacker.level().playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), 
+			ElementalToolsModModSounds.LIFESTEAL_SFX.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
 
 		// --- remove permanent max HP from the victim, no floor ---
 		// IMPORTANT: do NOT clamp the victim's current health here. Vanilla

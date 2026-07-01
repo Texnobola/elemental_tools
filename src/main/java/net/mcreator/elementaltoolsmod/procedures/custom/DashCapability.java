@@ -8,6 +8,7 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -75,6 +76,22 @@ public class DashCapability {
 		if (event.getObject() instanceof Player && !(event.getObject() instanceof FakePlayer)) {
 			event.addCapability(CAPABILITY_ID, new Provider());
 		}
+	}
+
+	@SubscribeEvent
+	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+		if (event.phase != TickEvent.Phase.END) {
+			return;
+		}
+		Player player = event.player;
+		player.getCapability(CAPABILITY).ifPresent(cap -> {
+			if (cap.dashCooldown > 0) {
+				cap.dashCooldown--;
+				if (player instanceof ServerPlayer serverPlayer) {
+					SyncCustomDataMessage.send(serverPlayer);
+				}
+			}
+		});
 	}
 
 	@SubscribeEvent

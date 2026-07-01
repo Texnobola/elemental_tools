@@ -17,6 +17,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.FriendlyByteBuf;
 
+import net.mcreator.elementaltoolsmod.init.ElementalToolsModModParticles;
+import net.mcreator.elementaltoolsmod.init.ElementalToolsModModSounds;
 import net.mcreator.elementaltoolsmod.init.ElementalToolsModModTabs;
 import net.mcreator.elementaltoolsmod.init.ElementalToolsModModMenus;
 import net.mcreator.elementaltoolsmod.init.ElementalToolsModModItems;
@@ -47,10 +49,14 @@ public class ElementalToolsModMod {
 		ElementalToolsModModItems.REGISTRY.register(bus);
 		ElementalToolsModModTabs.REGISTRY.register(bus);
 		ElementalToolsModModMenus.REGISTRY.register(bus);
+		ElementalToolsModModParticles.REGISTRY.register(bus);
+		ElementalToolsModModSounds.REGISTRY.register(bus);
 		// Start of user code block mod init
 		bus.addListener(net.mcreator.elementaltoolsmod.network.DashMessage::registerMessage);
 		bus.addListener(net.mcreator.elementaltoolsmod.network.SyncCustomDataMessage::registerMessage);
 		bus.addListener(net.mcreator.elementaltoolsmod.network.SpawnVFXMessage::registerMessage);
+		bus.addListener(net.mcreator.elementaltoolsmod.network.CritWaveMessage::registerMessage);
+		bus.addListener(net.mcreator.elementaltoolsmod.network.PlayPlayerAnimationMessage::registerMessage);
 		// End of user code block mod init
 	}
 

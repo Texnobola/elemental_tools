@@ -14,6 +14,21 @@ repositories {
     maven {
         url = 'https://maven.theillusivec4.top/'
     }
+    maven {
+        name "KosmX's maven"
+        url 'https://maven.kosmx.dev/'
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -31,9 +46,17 @@ legacyForge {
                     jvmArgument(arg)
                 }
             }
+            
+            // PlayerAnimator mixin properties
+            systemProperty 'mixin.env.remapRefMap', 'true'
+            systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
         }
         server {
             server()
+            
+            // PlayerAnimator mixin properties
+            systemProperty 'mixin.env.remapRefMap', 'true'
+            systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
         }
 
         configureEach {
@@ -63,7 +86,10 @@ mixin {
 dependencies {
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    modImplementation "team.lodestar.lodestone:lodestone:1.20.1-1.4.2.62"
+    modImplementation "maven.modrinth:bN3xUWdo:riljz5Ik"
+    
+    // PlayerAnimator
+    modImplementation "dev.kosmx.player-anim:player-animation-lib-forge:1.0.2-rc1+1.20"
     
     // Curios is required by Lodestone on Forge
     compileOnly "top.theillusivec4.curios:curios-forge:5.4.1+1.20.1:api"

@@ -1,0 +1,38 @@
+{
+  "crit_wave_sfx": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "elemental_tools_mod:crit_wave_sfx",
+        "stream": false
+      }
+    ]
+  },
+  "lifesteal_sfx": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "elemental_tools_mod:lifesteal_sfx",
+        "stream": false
+      }
+    ]
+  },
+  "bloody_dash_sfx": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "elemental_tools_mod:bloody_dash_sfx",
+        "stream": false
+      }
+    ]
+  },
+  "immortality_sfx": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "elemental_tools_mod:immortality_sfx",
+        "stream": false
+      }
+    ]
+  }
+}

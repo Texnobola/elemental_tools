@@ -43,7 +43,7 @@ public class SwordHUDRenderer {
     // ── Cooldown constants (ticks) ────────────────────────────────────────────
     private static final int LIFESTEAL_MAX = 600;   // 30s
     private static final int DASH_MAX      = 200;   // 10s
-    private static final int CRIT_MAX      = 1200;  // 60s
+    private static final int CRIT_MAX      = 300;   // 15s
 
     // ── Layout ────────────────────────────────────────────────────────────────
     private static final int PANEL_X      = 6;
@@ -151,14 +151,14 @@ cy += 10;
         cy += ROW_H;
 
         // 3. CRIT WAVE (stage 5+)
-        int critCd = 0; // TODO: replace with (int) vars.crit_cooldown
+        int critCd = (int) vars.crit_cooldown;
         drawRow(gfx, mc, cx, cy, ICON_CRIT, "Crit Wave",
                 stage >= 5, critCd, CRIT_MAX,
                 false, false, false);
         cy += ROW_H;
 
         // 4. IMMORTALITY (stage 7)
-        boolean immortalReady = false; // TODO: replace with vars.immortality_ready
+        boolean immortalReady = vars.has_consumed_bloody_can;
         drawRow(gfx, mc, cx, cy, ICON_IMMORTALITY, "Immortality",
                 stage >= 7, 0, 0,
                 false, true, immortalReady);

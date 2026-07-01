@@ -85,6 +85,9 @@ public class ElementalToolsModModVariables {
 			clone.steal_timer_4 = original.steal_timer_4;
 			clone.steal_timer_5 = original.steal_timer_5;
 			clone.sword_xp = original.sword_xp;
+			clone.crit_cooldown = original.crit_cooldown;
+			clone.has_consumed_bloody_can = original.has_consumed_bloody_can;
+			clone.resurrection_stun_ticks = original.resurrection_stun_ticks;
 			if (!event.isWasDeath()) {
 			}
 		}
@@ -267,6 +270,9 @@ public class ElementalToolsModModVariables {
 		public double steal_timer_4 = 0;
 		public double steal_timer_5 = 0;
 		public double sword_xp = 0;
+		public double crit_cooldown = 0;
+		public boolean has_consumed_bloody_can = false;
+		public double resurrection_stun_ticks = 0;
 
 		public void syncPlayerVariables(Entity entity) {
 			if (entity instanceof ServerPlayer serverPlayer)
@@ -288,10 +294,15 @@ public class ElementalToolsModModVariables {
 			nbt.putDouble("steal_timer_4", steal_timer_4);
 			nbt.putDouble("steal_timer_5", steal_timer_5);
 			nbt.putDouble("sword_xp", sword_xp);
+			nbt.putDouble("crit_cooldown", crit_cooldown);
+			nbt.putBoolean("has_consumed_bloody_can", has_consumed_bloody_can);
+			nbt.putDouble("resurrection_stun_ticks", resurrection_stun_ticks);
 			return nbt;
 		}
 
 		public void readNBT(Tag tag) {
+			if (tag == null)
+				return;
 			CompoundTag nbt = (CompoundTag) tag;
 			lifesteal_toggle = nbt.getBoolean("lifesteal_toggle");
 			lifesteal_cooldown = nbt.getDouble("lifesteal_cooldown");
@@ -306,6 +317,9 @@ public class ElementalToolsModModVariables {
 			steal_timer_4 = nbt.getDouble("steal_timer_4");
 			steal_timer_5 = nbt.getDouble("steal_timer_5");
 			sword_xp = nbt.getDouble("sword_xp");
+			crit_cooldown = nbt.getDouble("crit_cooldown");
+			has_consumed_bloody_can = nbt.getBoolean("has_consumed_bloody_can");
+			resurrection_stun_ticks = nbt.getDouble("resurrection_stun_ticks");
 		}
 	}
 
@@ -329,20 +343,27 @@ public class ElementalToolsModModVariables {
 			NetworkEvent.Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
 				if (!context.getDirection().getReceptionSide().isServer()) {
-					PlayerVariables variables = ((PlayerVariables) Minecraft.getInstance().player.getCapability(PLAYER_VARIABLES_CAPABILITY, null).orElseGet(PlayerVariables::new));
-					variables.lifesteal_toggle = message.data.lifesteal_toggle;
-					variables.lifesteal_cooldown = message.data.lifesteal_cooldown;
-					variables.steal_amount_1 = message.data.steal_amount_1;
-					variables.steal_amount_2 = message.data.steal_amount_2;
-					variables.steal_amount_3 = message.data.steal_amount_3;
-					variables.steal_amount_4 = message.data.steal_amount_4;
-					variables.steal_amount_5 = message.data.steal_amount_5;
-					variables.steal_timer_1 = message.data.steal_timer_1;
-					variables.steal_timer_2 = message.data.steal_timer_2;
-					variables.steal_timer_3 = message.data.steal_timer_3;
-					variables.steal_timer_4 = message.data.steal_timer_4;
-					variables.steal_timer_5 = message.data.steal_timer_5;
-					variables.sword_xp = message.data.sword_xp;
+					Player player = Minecraft.getInstance().player;
+					if (player != null) {
+						player.getCapability(PLAYER_VARIABLES_CAPABILITY, null).ifPresent(variables -> {
+							variables.lifesteal_toggle = message.data.lifesteal_toggle;
+							variables.lifesteal_cooldown = message.data.lifesteal_cooldown;
+							variables.steal_amount_1 = message.data.steal_amount_1;
+							variables.steal_amount_2 = message.data.steal_amount_2;
+							variables.steal_amount_3 = message.data.steal_amount_3;
+							variables.steal_amount_4 = message.data.steal_amount_4;
+							variables.steal_amount_5 = message.data.steal_amount_5;
+							variables.steal_timer_1 = message.data.steal_timer_1;
+							variables.steal_timer_2 = message.data.steal_timer_2;
+							variables.steal_timer_3 = message.data.steal_timer_3;
+							variables.steal_timer_4 = message.data.steal_timer_4;
+							variables.steal_timer_5 = message.data.steal_timer_5;
+							variables.sword_xp = message.data.sword_xp;
+							variables.crit_cooldown = message.data.crit_cooldown;
+							variables.has_consumed_bloody_can = message.data.has_consumed_bloody_can;
+							variables.resurrection_stun_ticks = message.data.resurrection_stun_ticks;
+						});
+					}
 				}
 			});
 			context.setPacketHandled(true);

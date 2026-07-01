@@ -15,8 +15,10 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraft.world.entity.Entity;
 
 import net.mcreator.elementaltoolsmod.network.ElementalToolsModModVariables;
+import net.mcreator.elementaltoolsmod.procedures.custom.CritSpinHelper;
 import net.mcreator.elementaltoolsmod.procedures.custom.DashCapability;
 import net.mcreator.elementaltoolsmod.network.SyncCustomDataMessage;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.server.level.ServerPlayer;
 
 import javax.annotation.Nullable;
@@ -37,6 +39,9 @@ public class StealDecayProcedure {
 	private static void execute(@Nullable Event event, Entity entity) {
 		if (entity == null)
 			return;
+		if (entity instanceof LivingEntity livingEntity && CritSpinHelper.isSpinning(livingEntity)) {
+			CritSpinHelper.tick(livingEntity);
+		}
 		if ((entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).lifesteal_cooldown > 0) {
 			double _setval = (entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElseGet(ElementalToolsModModVariables.PlayerVariables::new)).lifesteal_cooldown - 1;
 			entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
@@ -54,6 +59,14 @@ public class StealDecayProcedure {
 			} else if (capability.dashCooldown == 0 && entity instanceof ServerPlayer serverPlayer && serverPlayer.level().getGameTime() % 20 == 0) {
 				// Also sync occasionally when at 0 to ensure client knows it's READY
 				SyncCustomDataMessage.send(serverPlayer);
+			}
+		});
+		entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(capability -> {
+			if (capability.crit_cooldown > 0) {
+				capability.crit_cooldown = capability.crit_cooldown - 1;
+				if (entity instanceof ServerPlayer serverPlayer && serverPlayer.level().getGameTime() % 20 == 0) {
+					capability.syncPlayerVariables(entity);
+				}
 			}
 		});
 	}
