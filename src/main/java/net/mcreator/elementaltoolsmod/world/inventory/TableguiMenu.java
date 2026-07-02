@@ -20,6 +20,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
 import net.mcreator.elementaltoolsmod.init.ElementalToolsModModMenus;
+import net.mcreator.elementaltoolsmod.init.ElementalToolsModModItems;
+import net.mcreator.elementaltoolsmod.network.ElementalToolsModModVariables;
+import net.mcreator.elementaltoolsmod.procedures.custom.SwordUpgradeHelper;
 
 import java.util.function.Supplier;
 import java.util.Map;
@@ -50,7 +53,6 @@ public class TableguiMenu extends AbstractContainerMenu implements ElementalTool
 		super(ElementalToolsModModMenus.TABLEGUI.get(), id);
 		this.entity = inv.player;
 		this.world = inv.player.level();
-		this.internal = new ItemStackHandler(3);
 		BlockPos pos = null;
 		if (extraData != null) {
 			pos = extraData.readBlockPos();
@@ -60,30 +62,23 @@ public class TableguiMenu extends AbstractContainerMenu implements ElementalTool
 			access = ContainerLevelAccess.create(world, pos);
 		}
 		if (pos != null) {
-			if (extraData.readableBytes() == 1) { // bound to item
-				byte hand = extraData.readByte();
-				ItemStack itemstack = hand == 0 ? this.entity.getMainHandItem() : this.entity.getOffhandItem();
-				this.boundItemMatcher = () -> itemstack == (hand == 0 ? this.entity.getMainHandItem() : this.entity.getOffhandItem());
-				itemstack.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
+			boundBlockEntity = this.world.getBlockEntity(pos);
+			if (boundBlockEntity != null) {
+				boundBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
 					this.internal = capability;
 					this.bound = true;
 				});
-			} else if (extraData.readableBytes() > 1) { // bound to entity
-				extraData.readByte(); // drop padding
-				boundEntity = world.getEntity(extraData.readVarInt());
-				if (boundEntity != null)
-					boundEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
-						this.internal = capability;
-						this.bound = true;
-					});
-			} else { // might be bound to block
-				boundBlockEntity = this.world.getBlockEntity(pos);
-				if (boundBlockEntity != null)
-					boundBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
-						this.internal = capability;
-						this.bound = true;
-					});
 			}
+		}
+		if (this.internal == null) {
+			this.internal = new ItemStackHandler(3) {
+				@Override
+				protected void onContentsChanged(int slot) {
+					super.onContentsChanged(slot);
+					if (slot != 2)
+						updateOutputSlot();
+				}
+			};
 		}
 		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 66, 35) {
 			private final int slot = 0;
@@ -94,6 +89,11 @@ public class TableguiMenu extends AbstractContainerMenu implements ElementalTool
 			private final int slot = 1;
 			private int x = TableguiMenu.this.x;
 			private int y = TableguiMenu.this.y;
+
+			@Override
+			public boolean mayPlace(ItemStack stack) {
+				return stack.getItem() == ElementalToolsModModItems.BLOODCAN.get();
+			}
 		}));
 		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 121, 78) {
 			private final int slot = 2;
@@ -104,12 +104,64 @@ public class TableguiMenu extends AbstractContainerMenu implements ElementalTool
 			public boolean mayPlace(ItemStack stack) {
 				return false;
 			}
+
+			@Override
+			public void onTake(Player player, ItemStack stack) {
+				if (!player.level().isClientSide()) {
+					ItemStack swordInput = internal.getStackInSlot(0);
+					SwordUpgradeHelper.UpgradeInfo info = SwordUpgradeHelper.getUpgradeInfo(swordInput);
+					if (info != null) {
+						player.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(c -> {
+							c.sword_xp -= info.requiredXp;
+							c.syncPlayerVariables(player);
+						});
+					}
+					internal.extractItem(0, 1, false);
+					internal.extractItem(1, 1, false);
+				}
+				super.onTake(player, stack);
+			}
 		}));
 		for (int si = 0; si < 3; ++si)
 			for (int sj = 0; sj < 9; ++sj)
 				this.addSlot(new Slot(inv, sj + (si + 1) * 9, 40 + 8 + sj * 18, 17 + 84 + si * 18));
 		for (int si = 0; si < 9; ++si)
 			this.addSlot(new Slot(inv, si, 40 + 8 + si * 18, 17 + 142));
+	}
+
+	@Override
+	public void broadcastChanges() {
+		super.broadcastChanges();
+		updateOutputSlot();
+	}
+
+	private void updateOutputSlot() {
+		if (world.isClientSide()) return;
+		
+		ItemStack swordStack = internal.getStackInSlot(0);
+		ItemStack canStack = internal.getStackInSlot(1);
+		
+		if (swordStack.isEmpty() || canStack.isEmpty() || canStack.getItem() != ElementalToolsModModItems.BLOODCAN.get()) {
+			internal.extractItem(2, 64, false);
+			return;
+		}
+		
+		SwordUpgradeHelper.UpgradeInfo info = SwordUpgradeHelper.getUpgradeInfo(swordStack);
+		if (info != null) {
+			double currentXp = entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null)
+				.map(c -> c.sword_xp).orElse(0.0);
+				
+			if (currentXp >= info.requiredXp) {
+				ItemStack result = new ItemStack(info.nextStage);
+				// Transfer NBT if needed (e.g. enchantments, custom names)
+				if (swordStack.hasTag()) {
+					result.setTag(swordStack.getTag().copy());
+				}
+				((IItemHandlerModifiable) internal).setStackInSlot(2, result);
+				return;
+			}
+		}
+		internal.extractItem(2, 64, false);
 	}
 
 	@Override

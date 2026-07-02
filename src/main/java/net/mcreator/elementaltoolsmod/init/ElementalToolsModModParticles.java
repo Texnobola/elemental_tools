@@ -14,6 +14,7 @@ public class ElementalToolsModModParticles {
     public static final DeferredRegister<ParticleType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, ElementalToolsModMod.MODID);
 
     public static final RegistryObject<LodestoneWorldParticleType> GROUND_CRACK = REGISTRY.register("ground_crack", LodestoneWorldParticleType::new);
+    public static final RegistryObject<LodestoneWorldParticleType> DASH_VFX = REGISTRY.register("dash_vfx", LodestoneWorldParticleType::new);
 
     public static void register(IEventBus bus) {
         REGISTRY.register(bus);

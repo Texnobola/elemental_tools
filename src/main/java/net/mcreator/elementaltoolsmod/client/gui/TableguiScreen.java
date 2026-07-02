@@ -1,6 +1,7 @@
 package net.mcreator.elementaltoolsmod.client.gui;
 
 import net.minecraft.world.level.Level;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.resources.ResourceLocation;
@@ -10,6 +11,9 @@ import net.minecraft.client.gui.GuiGraphics;
 
 import net.mcreator.elementaltoolsmod.world.inventory.TableguiMenu;
 import net.mcreator.elementaltoolsmod.init.ElementalToolsModModScreens;
+import net.mcreator.elementaltoolsmod.network.ElementalToolsModModVariables;
+import net.mcreator.elementaltoolsmod.procedures.custom.SwordUpgradeHelper;
+import net.mcreator.elementaltoolsmod.procedures.custom.CheatCapability;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -71,6 +75,16 @@ public class TableguiScreen extends AbstractContainerScreen<TableguiMenu> implem
 
 	@Override
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+		double currentXp = entity.getCapability(ElementalToolsModModVariables.PLAYER_VARIABLES_CAPABILITY, null)
+				.map(c -> c.sword_xp).orElse(0.0);
+		guiGraphics.drawString(this.font, "Current XP: " + (int) currentXp, 8, 8, 0xFFFFFF);
+
+		ItemStack swordStack = menu.getSlot(0).getItem();
+		SwordUpgradeHelper.UpgradeInfo info = SwordUpgradeHelper.getUpgradeInfo(swordStack);
+		if (info != null) {
+			int color = currentXp >= info.requiredXp ? 0x00FF00 : 0xFF0000;
+			guiGraphics.drawString(this.font, "Cost: " + (int) info.requiredXp + " XP", 8, 18, color);
+		}
 	}
 
 	@Override

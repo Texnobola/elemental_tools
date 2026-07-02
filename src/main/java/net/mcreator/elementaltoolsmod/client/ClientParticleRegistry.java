@@ -13,5 +13,6 @@ public class ClientParticleRegistry {
     @SubscribeEvent
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ElementalToolsModModParticles.GROUND_CRACK.get(), LodestoneWorldParticleType.Factory::new);
+        event.registerSpriteSet(ElementalToolsModModParticles.DASH_VFX.get(), LodestoneWorldParticleType.Factory::new);
     }
 }

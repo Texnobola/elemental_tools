@@ -204,98 +204,29 @@ public class VFXHelper {
 
     private static void spawnBloodyDash(Level level, double x, double y, double z, Color bloodRed, Color darkBlood, Color crimson, Color wateryBlood, Color deepBlood) {
         try {
-            // 1. Liquid blood streaks - small dense droplets, no cloud wisps
-            for (int i = 0; i < 10; i++) {
-                WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
-                    .setScaleData(GenericParticleData.create(0.25f + level.random.nextFloat() * 0.2f, 0.05f)
-                        .setEasing(Easing.SINE_OUT).build())
-                    .setTransparencyData(GenericParticleData.create(0.95f, 0.3f)
+            // FULL REPLACEMENT: Only use the custom DASH_VFX texture to create a cohesive trail
+            for (int i = 0; i < 5; i++) {
+                WorldParticleBuilder.create(ElementalToolsModModParticles.DASH_VFX.get())
+                    .setScaleData(GenericParticleData.create(1.6f + level.random.nextFloat() * 0.4f, 0.0f)
+                        .setEasing(Easing.QUAD_OUT).build())
+                    .setTransparencyData(GenericParticleData.create(1.0f, 0.0f)
                         .setEasing(Easing.QUINTIC_OUT).build())
                     .setColorData(ColorParticleData.create(bloodRed, deepBlood)
-                        .setCoefficient(1.2f).setEasing(Easing.QUAD_OUT).build())
-                    .setLifetime(18 + level.random.nextInt(10))
-                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                    .addMotion(
-                        (level.random.nextFloat() - 0.5f) * 0.03f,
-                        -0.06f - level.random.nextFloat() * 0.04f,
-                        (level.random.nextFloat() - 0.5f) * 0.03f
-                    )
-                    .enableNoClip()
-                    .spawn(level, x + (level.random.nextFloat() - 0.5f) * 0.35,
-                           y + (level.random.nextFloat() - 0.5f) * 0.25,
-                           z + (level.random.nextFloat() - 0.5f) * 0.35);
-            }
-
-            // 2. Thin blood ribbons along dash path
-            for (int i = 0; i < 8; i++) {
-                WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
-                    .setScaleData(GenericParticleData.create(0.35f + level.random.nextFloat() * 0.25f, 0.0f)
-                        .setEasing(Easing.CUBIC_OUT).build())
-                    .setTransparencyData(GenericParticleData.create(0.85f, 0.0f)
-                        .setEasing(Easing.QUINTIC_OUT).build())
-                    .setColorData(ColorParticleData.create(crimson, darkBlood)
-                        .setCoefficient(1.3f).setEasing(Easing.QUAD_OUT).build())
-                    .setLifetime(22 + level.random.nextInt(12))
+                        .setCoefficient(1.5f).setEasing(Easing.QUAD_OUT).build())
+                    // Random spin for a chaotic "splatter" trail look
+                    .setSpinData(SpinParticleData.create(level.random.nextFloat() * 6.28f, (level.random.nextFloat() - 0.5f) * 0.15f).build())
+                    .setLifetime(12 + level.random.nextInt(8))
                     .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
                     .addMotion(
                         (level.random.nextFloat() - 0.5f) * 0.02f,
-                        -0.05f - level.random.nextFloat() * 0.03f,
+                        -0.02f - level.random.nextFloat() * 0.02f, // Slight downward drip
                         (level.random.nextFloat() - 0.5f) * 0.02f
                     )
                     .enableNoClip()
-                    .spawn(level, x + (level.random.nextFloat() - 0.5f) * 0.5,
-                           y + (level.random.nextFloat() - 0.5f) * 0.3,
-                           z + (level.random.nextFloat() - 0.5f) * 0.5);
+                    .spawn(level, x + (level.random.nextFloat() - 0.5f) * 0.15,
+                           y + (level.random.nextFloat() - 0.5f) * 0.15,
+                           z + (level.random.nextFloat() - 0.5f) * 0.15);
             }
-
-            // 3. Dripping blood drops with gravity
-            for (int i = 0; i < 12; i++) {
-                WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
-                    .setScaleData(GenericParticleData.create(0.35f + level.random.nextFloat() * 0.25f, 0.0f)
-                        .setEasing(Easing.SINE_OUT).build())
-                    .setTransparencyData(GenericParticleData.create(0.95f, 0.0f)
-                        .setEasing(Easing.QUINTIC_OUT).build())
-                    .setColorData(ColorParticleData.create(bloodRed, darkBlood)
-                        .setCoefficient(1.5f).setEasing(Easing.SINE_OUT).build())
-                    .setLifetime(28 + level.random.nextInt(14))
-                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-                    .addMotion(
-                        (level.random.nextFloat() - 0.5f) * 0.04f,
-                        -0.1f - level.random.nextFloat() * 0.08f,
-                        (level.random.nextFloat() - 0.5f) * 0.04f
-                    )
-                    .enableNoClip()
-                    .spawn(level, x + (level.random.nextFloat() - 0.5f) * 0.3,
-                           y + (level.random.nextFloat() - 0.15f),
-                           z + (level.random.nextFloat() - 0.5f) * 0.3);
-            }
-
-            // 4. Wet highlights - tiny bright specs, not fog
-            for (int i = 0; i < 5; i++) {
-                WorldParticleBuilder.create(LodestoneParticleRegistry.SPARKLE_PARTICLE)
-                    .setScaleData(GenericParticleData.create(0.15f + level.random.nextFloat() * 0.15f, 0.0f)
-                        .setEasing(Easing.QUAD_OUT).build())
-                    .setTransparencyData(GenericParticleData.create(0.7f, 0.0f)
-                        .setEasing(Easing.CUBIC_OUT).build())
-                    .setColorData(ColorParticleData.create(new Color(255, 80, 80), bloodRed)
-                        .setCoefficient(2.0f).build())
-                    .setLifetime(10 + level.random.nextInt(6))
-                    .setRenderType(LodestoneWorldParticleRenderType.ADDITIVE)
-                    .addMotion(0, -0.04f, 0)
-                    .spawn(level, x + (level.random.nextFloat() - 0.5f) * 0.4,
-                           y + (level.random.nextFloat() - 0.5f) * 0.3,
-                           z + (level.random.nextFloat() - 0.5f) * 0.4);
-            }
-
-            // 5. Blood splatter impact flecks
-            for (int i = 0; i < 4; i++) {
-                level.addParticle(net.minecraft.core.particles.ParticleTypes.DAMAGE_INDICATOR,
-                    x + (level.random.nextFloat() - 0.5f) * 0.3,
-                    y + 0.15,
-                    z + (level.random.nextFloat() - 0.5f) * 0.3,
-                    0, 0.04, 0);
-            }
-
         } catch (Exception e) {
             // #region agent log
             debugLog("H3", "VFXHelper.spawnBloodyDash", "vfx error", Map.of("error", e.getMessage()));

@@ -1,17 +1,24 @@
 modLoader="javafml"
 loaderVersion="[47,)"
-license="Not specified"
+license="Creative Commons Attribution-NonCommercial 4.0 International"
 
 [[mods]]
 modId="elemental_tools_mod"
 version="1.0.0"
-displayName="elemental_tools_mod"
-displayURL="https://mcreator.net"
-credits="Created using mod maker MCreator - https://mcreator.net/about"
-authors="MCreator"
+displayName="Elemental Tools: Qonli Sezon"
+description="Ushbu mod o'yinga murakkab qobiliyatlar, yuqori sifatli vizual effektlar (VFX) va rivojlanish tizimiga ega bo'lgan elementar buyumlarni qo'shadi."
+authors="SultonovDEV"
+logoFile="logo.png"
 
 # Start of user code block mod configuration
 # End of user code block mod configuration
+
+[[dependencies.elemental_tools_mod]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47.1.0,)"
+    ordering="NONE"
+    side="BOTH"
 
 [[dependencies.elemental_tools_mod]]
     modId="minecraft"
@@ -20,14 +27,25 @@ authors="MCreator"
     ordering="AFTER"
     side="BOTH"
 
-
 [[dependencies.elemental_tools_mod]]
     modId="geckolib"
-    mandatory=false
-    versionRange="[0,)"
-    ordering="NONE"
+    mandatory=true
+    versionRange="[4.2.4,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.elemental_tools_mod]]
+    modId="lodestone"
+    mandatory=true
+    versionRange="[1.6.4.1,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.elemental_tools_mod]]
+    modId="playeranimator"
+    mandatory=true
+    versionRange="[1.0.2,)"
+    ordering="AFTER"
     side="BOTH"
 
 
-# Start of user code block dependencies configuration
-# End of user code block dependencies configuration
